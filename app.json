@@ -1,4 +1,11 @@
 {
   "name": "intento2",
-  "displayName": "intento2"
+  "displayName": "intento2",
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "24595e31-4173-46ac-a8de-830cffb34d49"
+      }
+    }
+  }
 }
