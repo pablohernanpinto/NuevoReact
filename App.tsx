@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Text,Modal, FlatList,TextInput,StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button, Modal, TextInput, Image, ScrollView } from 'react-native';
 import RNFS from 'react-native-fs';
-import DatePicker from 'react-native-date-picker'
-import DocumentPicker from 'react-native-document-picker';
 
 export default function App() {
-  const [contador, setContador] = useState(1);
-  const [selectedJsonContent, setSelectedJsonContent] = useState(null);
-  const [jsonFiles, setJsonFiles] = useState(['0.json']);
-
-  const [lista, setLista] = useState ([])
-
-
+  const [data, setData] = useState([]);
+  
   /* modal */
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
@@ -24,29 +17,50 @@ export default function App() {
   const [Mes, setMes] = React.useState('');
   const [Anio, setAnio] = React.useState('');
 
+
   useEffect(() => {
-    // Cargar la lista de archivos JSON al inicio 
     loadJsonFiles();
-  }, []); // La dependencia vacía asegura que se ejecute solo una vez al montar el componente
+  }, []);
 
   const loadJsonFiles = async () => {
     try {
       const files = await RNFS.readdir(RNFS.DocumentDirectoryPath);
       const jsonFiles = files.filter(file => file.endsWith('.json'));
 
-      setJsonFiles(jsonFiles.reverse());
-       for (let i = 0; i<jsonFiles.length;i++){
-        const aux = jsonFiles[i].split('.')
-        lista.push(Number(aux[0]))
+      const dataArray = [];
+
+      for (let i = 0; i < jsonFiles.length; i++) {
+        const fileName = jsonFiles[i];
+        const path = RNFS.DocumentDirectoryPath + `/${fileName}`;
+
+        try {
+          const content = await RNFS.readFile(path, 'utf8');
+          const parsedContent = JSON.parse(content);
+          dataArray.push({nombre: fileName, fecha: parsedContent.fecha, index: parsedContent.index });
+        } catch (error) {
+          console.error(`Error al leer el archivo ${fileName}:`, error);
+        }
       }
-      setContador(Math.max(...lista))
-      console.log(contador,'de la primera') 
-
+      setData(dataArray);
+      //console.log(data)
     } catch (error) {
-
       console.error('Error al cargar la lista de archivos JSON:', error);
     }
   };
+
+
+  const handleCreateJson = async () => {
+    //console.log(data)
+    const indexMasGrande = data.reduce((maxIndex, elemento) => {
+      return elemento.index > maxIndex ? elemento.index : maxIndex;
+    }, -1);
+    try {
+      await createJsonFile(indexMasGrande+1, { fecha: Dia+'/'+Mes+'/'+Anio, index: Number(indexMasGrande)+1 });
+    } catch (error) {
+      await createJsonFile('0', { fecha: Dia+'/'+Mes+'/'+Anio, index: 0 });
+      //console.error('Error al crear el archivo JSON:', error);
+    }
+  }; 
 
   const createJsonFile = async (fileName: string, content: { mensaje: string }) => {
     const path = RNFS.DocumentDirectoryPath + `/${fileName}.json`;
@@ -66,7 +80,7 @@ export default function App() {
 
     try {
       await RNFS.unlink(path); 
-      console.log(`Archivo ${fileName} eliminado`);
+      //console.log(`Archivo ${fileName} eliminado`);
       // Actualizar la lista de archivos después de eliminar uno
       loadJsonFiles();
     } catch (error) {
@@ -74,50 +88,37 @@ export default function App() {
     }
   };
 
-
-  const handleCreateJson = async () => {
-
-    try {
-      console.log(jsonFiles, 'este')
-      const nombre = jsonFiles[0].split('.')
-      //console.log(Math.max(...jsonFiles))
-
-      
-      await createJsonFile(contador+1, { fecha: Dia+'/'+Mes+'/'+Anio, index: Number(nombre[0])+1 });
-    } catch (error) {
-      
-      await createJsonFile(0, { fecha: Dia+'/'+Mes+'/'+Anio, index: 0 });
-
-      //console.error('Error al crear el archivo JSON:', error);
-      // Puedes manejar el error de alguna manera, dependiendo de tus requisitos.
-    }
-  }; 
+  const Tarjeta = ({nombre, fecha, index }) => {
+    return (
+      <View style={styles.tarjeta}>
+        <Text>{`Nombre: ${nombre}`}</Text>
+        <Text>{`Fecha: ${fecha}`}</Text>
+        <Text>{`Index: ${index}`}</Text>
+        <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(nombre)}/>
+      </View>
+    );
+  };
 
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    {/* Contenedor de la lista de archivos */}
-    <FlatList
-  horizontal={false}
-  numColumns={2}
-  data={jsonFiles}
-  keyExtractor={(item) => item}
-  renderItem={({ item }) => (
-    <View style={styles.itemContainer}>
-      <Text style={styles.dateText}>{'Fecha de registro:'}</Text>
-      <Text style={styles.fileNameText}>{item} </Text>
-
-      <View>
+    
+    <View style={styles.container}>
+        <View style={{flex:1, alignItems: 'center',paddingTop:'3%'}}> 
+            <Image source={require('./assets/logo-patagoniafresh.png')} />
+        </View>
         
-      <Button title="Ingresar" onPress={() => deleteJsonFile(item)}/>
-      <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(item)}/>
-    
-      </View>
-    
-    </View>
-      )}
-    />
+        <ScrollView>
 
+
+      {data.map((elemento, index) => (
+        <Tarjeta key={index} nombre = {elemento.nombre}  fecha={elemento.fecha} index={elemento.index} />
+        
+      ))}
+        </ScrollView>
+         <View style={styles.botonAgregar}>
+    
+          <Button title="Agregar formulario" onPress={toggleModal} />
+          </View>
         {/*modal */}
         <Modal
         animationType="slide"
@@ -160,33 +161,24 @@ export default function App() {
           </View>
         </View>
       </Modal>
-      {/* fin modal */}
 
-
-    {/* Botón "Crear Archivo JSON" en la parte inferior derecha */}
-    <View style={styles.botonAgregar}>
-    
-    {/* <Button title="Agregar formulario" onPress={handlePickDocument} />
-     */}  
-     <Button title="Agregar formulario" onPress={toggleModal} />
     </View>
-
-    {/* Otro contenido de la aplicación (si es necesario) */}
-    {selectedJsonContent && <Text>{selectedJsonContent}</Text>}
-  </View>
-);
+  );
 }
 
-
-
 const styles = StyleSheet.create({
-  listContainer: {
+  container: {
+    backgroundColor:'#f9fdee',
     flex: 1,
-    backgroundColor: '#61dafb',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  listItem: {
-    fontStyle: 'italic',
-    fontWeight: 'bold',
+  tarjeta: {
+    backgroundColor:'white',
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 10,
+    margin: 10,
   },
   botonAgregar:{
     position: 'absolute', 
@@ -194,11 +186,6 @@ const styles = StyleSheet.create({
     right: 10 
   },
 
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -221,31 +208,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
-
   fecha: {
     flexDirection: 'row'
   },
-  itemContainer: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '9%',
-    margin: '1%',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    backgroundColor: '#fff',
+  tinyLogo: {
+    width: 100,
+    height: 100,
   },
-  dateText: {
-    fontSize: 14,
-    marginBottom: 5,
-  },
-  fileNameText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  deleteButton: {
-    marginLeft: 10,
-    alignSelf: 'flex-end',
-  },
+
 });
