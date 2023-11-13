@@ -7,7 +7,9 @@ import DocumentPicker from 'react-native-document-picker';
 export default function App() {
   const [contador, setContador] = useState(1);
   const [selectedJsonContent, setSelectedJsonContent] = useState(null);
-  const [jsonFiles, setJsonFiles] = useState([]);
+  const [jsonFiles, setJsonFiles] = useState(['0.json']);
+
+  const [lista, setLista] = useState ([])
 
 
   /* modal */
@@ -23,7 +25,7 @@ export default function App() {
   const [Anio, setAnio] = React.useState('');
 
   useEffect(() => {
-    // Cargar la lista de archivos JSON al inicio
+    // Cargar la lista de archivos JSON al inicio 
     loadJsonFiles();
   }, []); // La dependencia vacía asegura que se ejecute solo una vez al montar el componente
 
@@ -31,8 +33,17 @@ export default function App() {
     try {
       const files = await RNFS.readdir(RNFS.DocumentDirectoryPath);
       const jsonFiles = files.filter(file => file.endsWith('.json'));
-      setJsonFiles(jsonFiles);
+
+      setJsonFiles(jsonFiles.reverse());
+       for (let i = 0; i<jsonFiles.length;i++){
+        const aux = jsonFiles[i].split('.')
+        lista.push(Number(aux[0]))
+      }
+      setContador(Math.max(...lista))
+      console.log(contador,'de la primera') 
+
     } catch (error) {
+
       console.error('Error al cargar la lista de archivos JSON:', error);
     }
   };
@@ -54,7 +65,7 @@ export default function App() {
     const path = RNFS.DocumentDirectoryPath + `/${fileName}`;
 
     try {
-      await RNFS.unlink(path);
+      await RNFS.unlink(path); 
       console.log(`Archivo ${fileName} eliminado`);
       // Actualizar la lista de archivos después de eliminar uno
       loadJsonFiles();
@@ -63,67 +74,47 @@ export default function App() {
     }
   };
 
+
   const handleCreateJson = async () => {
-    const fileName = `${contador}`;
-    console.log(Dia+'/'+Mes+'/'+Anio)
+
     try {
-      await createJsonFile(fileName, { fecha: Dia+'/'+Mes+'/'+Anio, index: `${contador}` });
-      setContador(contador + 1);
-      {toggleModal}
+      console.log(jsonFiles, 'este')
+      const nombre = jsonFiles[0].split('.')
+      //console.log(Math.max(...jsonFiles))
+
+      
+      await createJsonFile(contador+1, { fecha: Dia+'/'+Mes+'/'+Anio, index: Number(nombre[0])+1 });
     } catch (error) {
-      console.error('Error al crear el archivo JSON:', error);
+      
+      await createJsonFile(0, { fecha: Dia+'/'+Mes+'/'+Anio, index: 0 });
+
+      //console.error('Error al crear el archivo JSON:', error);
       // Puedes manejar el error de alguna manera, dependiendo de tus requisitos.
     }
   }; 
 
 
-    const handlePickDocument = async () => {
-      //console.log(RNFS.DocumentDirectoryPath)
-      const files = await RNFS.readdir(RNFS.DocumentDirectoryPath);
-      console.log(files)
-      
-      /* 
-      try {
-        const result = await DocumentPicker.pick({type: [DocumentPicker.types.allFiles],});
-  
-   
-        const fileNameParts = result[0].name.split('.')
-  
-        const fileExtension = fileNameParts[fileNameParts.length - 1];
-  
-        console.log(fileExtension)
-        if (fileExtension === 'json') {
-          const content = await RNFS.readFile(result[0].uri, 'utf8');
-          setSelectedJsonContent(content);
-        } else {
-          console.warn('El archivo seleccionado no es un archivo JSON.');
-        }
-      } catch (err) {
-        if (DocumentPicker.isCancel(err)) {
-        } else {
-          throw err;
-        }
-      }
- */
-  };
-
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     {/* Contenedor de la lista de archivos */}
     <FlatList
-      horizontal={false}
-      numColumns={2}
-      data={jsonFiles}
-      keyExtractor={(item) => item}
-      renderItem={({ item }) => (
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text>{item}</Text>
-          <Button
-            title="Eliminar"
-            onPress={() => deleteJsonFile(item)}
-            styles={{ marginLeft: 10, alignSelf: 'flex-end' }}
-          />
-        </View>
+  horizontal={false}
+  numColumns={2}
+  data={jsonFiles}
+  keyExtractor={(item) => item}
+  renderItem={({ item }) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.dateText}>{'Fecha de registro:'}</Text>
+      <Text style={styles.fileNameText}>{item} </Text>
+
+      <View>
+        
+      <Button title="Ingresar" onPress={() => deleteJsonFile(item)}/>
+      <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(item)}/>
+    
+      </View>
+    
+    </View>
       )}
     />
 
@@ -136,7 +127,7 @@ export default function App() {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Ingrese informacion</Text>
+            <Text style={styles.modalText}>Ingrese fecha de formulario</Text>
             <View style = {styles.fecha}>
               <TextInput
                 style={styles.input}
@@ -145,24 +136,27 @@ export default function App() {
                 placeholder="Dia"
                 keyboardType="numeric"
               />
-                          <TextInput
+              <TextInput
                 style={styles.input}
                 onChangeText={setMes}
                 value={Mes}
                 placeholder="Mes"
                 keyboardType="numeric"
               />
-                          <TextInput
+              <TextInput
                 style={styles.input}
                 onChangeText={setAnio}
                 value={Anio}
                 placeholder="Año"
                 keyboardType="numeric"
               />
-            </View>
-    
+            </View >
+            <View style= {{paddingVertical:'5%'}}>
             <Button title="Crear formulario" onPress={handleCreateJson} />
-            <Button title="Crear formulario" onPress={toggleModal} />
+            
+            <Button title="Cerrar" onPress={toggleModal} />
+            </View>
+            
           </View>
         </View>
       </Modal>
@@ -223,11 +217,35 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    margin: 12,
+    margin: 2,
     borderWidth: 1,
     padding: 10,
   },
+
   fecha: {
     flexDirection: 'row'
+  },
+  itemContainer: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '9%',
+    margin: '1%',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+  },
+  dateText: {
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  fileNameText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  deleteButton: {
+    marginLeft: 10,
+    alignSelf: 'flex-end',
   },
 });

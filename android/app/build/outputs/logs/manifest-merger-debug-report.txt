@@ -8,6 +8,7 @@ MERGED from E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\
 MERGED from [com.facebook.flipper:flipper-network-plugin:0.182.0] C:\Users\Pablo\.gradle\caches\transforms-3\e47626a30834dcd66576d826bae55315\transformed\jetified-flipper-network-plugin-0.182.0\AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.182.0] C:\Users\Pablo\.gradle\caches\transforms-3\927874504f02e490d8ef5fc541319ddd\transformed\jetified-flipper-fresco-plugin-0.182.0\AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper:0.182.0] C:\Users\Pablo\.gradle\caches\transforms-3\e13f88164840fe641a466d05cd8edac7\transformed\jetified-flipper-0.182.0\AndroidManifest.xml:8:1-18:12
+MERGED from [:react-native-date-picker] E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-date-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-document-picker] E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-document-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-fs] E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-fs\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.react:react-android:0.72.6] C:\Users\Pablo\.gradle\caches\transforms-3\620147001f23a61fa54dd66c3890cad2\transformed\jetified-react-android-0.72.6-debug\AndroidManifest.xml:2:1-7:12
@@ -61,6 +62,8 @@ MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Pablo\.gradle
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\Pablo\.gradle\caches\transforms-3\6f02cdabe3b0f4b648ca283ad9ff996c\transformed\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.4.0] C:\Users\Pablo\.gradle\caches\transforms-3\cf8c141c143f512e5d69201abc198297\transformed\lifecycle-runtime-2.4.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Pablo\.gradle\caches\transforms-3\9e963b848f7749309ceb54174b3bfd88\transformed\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.github.henninghall:numberpickerview:v1.1.5] C:\Users\Pablo\.gradle\caches\transforms-3\97bc6e096de38b087bf3afbd209394ba\transformed\jetified-numberpickerview-v1.1.5\AndroidManifest.xml:2:1-11:12
+MERGED from [net.time4j:time4j-android:4.8-2021a] C:\Users\Pablo\.gradle\caches\transforms-3\7acd965a37b68148fb305fc6291da56c\transformed\jetified-time4j-android-4.8-2021a\AndroidManifest.xml:2:1-13:12
 MERGED from [com.facebook.fresco:fbcore:2.6.0] C:\Users\Pablo\.gradle\caches\transforms-3\6b675b8779f5bce57b5bb10c07a431c5\transformed\jetified-fbcore-2.6.0\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\Pablo\.gradle\caches\transforms-3\ea88610a3c8be13450373fa73372379b\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
 INJECTED from E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\app\src\debug\AndroidManifest.xml:2:1-13:12
@@ -110,6 +113,8 @@ MERGED from [androidx.core:core:1.7.0] C:\Users\Pablo\.gradle\caches\transforms-
 MERGED from [androidx.core:core:1.7.0] C:\Users\Pablo\.gradle\caches\transforms-3\75e4635b66fa4e4e84e71b52579837ce\transformed\core-1.7.0\AndroidManifest.xml:24:5-89
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Pablo\.gradle\caches\transforms-3\a1eec6f4e1f4253fcf428dd43a9fa3cd\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Pablo\.gradle\caches\transforms-3\a1eec6f4e1f4253fcf428dd43a9fa3cd\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [net.time4j:time4j-android:4.8-2021a] C:\Users\Pablo\.gradle\caches\transforms-3\7acd965a37b68148fb305fc6291da56c\transformed\jetified-time4j-android-4.8-2021a\AndroidManifest.xml:11:5-20
+MERGED from [net.time4j:time4j-android:4.8-2021a] C:\Users\Pablo\.gradle\caches\transforms-3\7acd965a37b68148fb305fc6291da56c\transformed\jetified-time4j-android-4.8-2021a\AndroidManifest.xml:11:5-20
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.7.0] C:\Users\Pablo\.gradle\caches\transforms-3\75e4635b66fa4e4e84e71b52579837ce\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
 	android:label
@@ -170,6 +175,8 @@ MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.182.0] C:\Users\Pablo\
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.182.0] C:\Users\Pablo\.gradle\caches\transforms-3\927874504f02e490d8ef5fc541319ddd\transformed\jetified-flipper-fresco-plugin-0.182.0\AndroidManifest.xml:11:5-13:41
 MERGED from [com.facebook.flipper:flipper:0.182.0] C:\Users\Pablo\.gradle\caches\transforms-3\e13f88164840fe641a466d05cd8edac7\transformed\jetified-flipper-0.182.0\AndroidManifest.xml:11:5-13:41
 MERGED from [com.facebook.flipper:flipper:0.182.0] C:\Users\Pablo\.gradle\caches\transforms-3\e13f88164840fe641a466d05cd8edac7\transformed\jetified-flipper-0.182.0\AndroidManifest.xml:11:5-13:41
+MERGED from [:react-native-date-picker] E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-date-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-date-picker] E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-date-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-document-picker] E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-document-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-document-picker] E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-document-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-fs] E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-fs\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
@@ -276,6 +283,10 @@ MERGED from [androidx.lifecycle:lifecycle-runtime:2.4.0] C:\Users\Pablo\.gradle\
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.4.0] C:\Users\Pablo\.gradle\caches\transforms-3\cf8c141c143f512e5d69201abc198297\transformed\lifecycle-runtime-2.4.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Pablo\.gradle\caches\transforms-3\9e963b848f7749309ceb54174b3bfd88\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\Pablo\.gradle\caches\transforms-3\9e963b848f7749309ceb54174b3bfd88\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.github.henninghall:numberpickerview:v1.1.5] C:\Users\Pablo\.gradle\caches\transforms-3\97bc6e096de38b087bf3afbd209394ba\transformed\jetified-numberpickerview-v1.1.5\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.henninghall:numberpickerview:v1.1.5] C:\Users\Pablo\.gradle\caches\transforms-3\97bc6e096de38b087bf3afbd209394ba\transformed\jetified-numberpickerview-v1.1.5\AndroidManifest.xml:7:5-9:41
+MERGED from [net.time4j:time4j-android:4.8-2021a] C:\Users\Pablo\.gradle\caches\transforms-3\7acd965a37b68148fb305fc6291da56c\transformed\jetified-time4j-android-4.8-2021a\AndroidManifest.xml:7:5-9:41
+MERGED from [net.time4j:time4j-android:4.8-2021a] C:\Users\Pablo\.gradle\caches\transforms-3\7acd965a37b68148fb305fc6291da56c\transformed\jetified-time4j-android-4.8-2021a\AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.fresco:fbcore:2.6.0] C:\Users\Pablo\.gradle\caches\transforms-3\6b675b8779f5bce57b5bb10c07a431c5\transformed\jetified-fbcore-2.6.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.fresco:fbcore:2.6.0] C:\Users\Pablo\.gradle\caches\transforms-3\6b675b8779f5bce57b5bb10c07a431c5\transformed\jetified-fbcore-2.6.0\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\Pablo\.gradle\caches\transforms-3\ea88610a3c8be13450373fa73372379b\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
