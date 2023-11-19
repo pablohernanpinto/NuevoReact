@@ -91,9 +91,10 @@ export default function App() {
   const Tarjeta = ({nombre, fecha, index }) => {
     return (
       <View style={styles.tarjeta}>
-        <Text>{`Nombre: ${nombre}`}</Text>
+
         <Text>{`Fecha: ${fecha}`}</Text>
-        <Text>{`Index: ${index}`}</Text>
+        {/* <Text>{`Index: ${index}`}</Text> */}
+        <Button color={'green'} title="Ingresar" onPress={() => deleteJsonFile(nombre)}/>
         <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(nombre)}/>
       </View>
     );
@@ -103,18 +104,22 @@ export default function App() {
   return (
     
     <View style={styles.container}>
-        <View style={{flex:1, alignItems: 'center',paddingTop:'3%'}}> 
+        <View style={{flex:1, alignItems: 'center',paddingTop:'3%',backgroundColor:'#dce7bd',width:'100%'}}> 
             <Image source={require('./assets/logo-patagoniafresh.png')} />
         </View>
         
-        <ScrollView>
+        <ScrollView >
 
+          <View style = {styles.scroll}>
 
-      {data.map((elemento, index) => (
-        <Tarjeta key={index} nombre = {elemento.nombre}  fecha={elemento.fecha} index={elemento.index} />
-        
-      ))}
+            {data.map((elemento, index) => (
+              <Tarjeta key={index} nombre = {elemento.nombre}  fecha={elemento.fecha} index={elemento.index} />
+            ))}
+          </View>
+
         </ScrollView>
+
+
          <View style={styles.botonAgregar}>
     
           <Button title="Agregar formulario" onPress={toggleModal} />
@@ -174,9 +179,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tarjeta: {
+    display: 'flex',
     backgroundColor:'white',
     borderWidth: 1,
     borderColor: 'black',
+    width:'44.9%',
     padding: 10,
     margin: 10,
   },
@@ -211,9 +218,10 @@ const styles = StyleSheet.create({
   fecha: {
     flexDirection: 'row'
   },
-  tinyLogo: {
-    width: 100,
-    height: 100,
-  },
+
+  scroll:{
+    flexDirection:'row',
+    flexWrap: 'wrap'
+  }
 
 });
