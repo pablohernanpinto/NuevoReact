@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Modal, TextInput, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Button, Modal, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
 import RNFS from 'react-native-fs';
+import FormsComp from './src/components/Forms'
 
-export default function App() {
+
+
+export default function App({navigation}) {
   const [data, setData] = useState([]);
   
   /* modal */
   const [modalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!modalVisible);
+  };
+  const [ModalOpcionesValor, setModalOpciones] = useState(false);
+
+  const [fecha, setFecha] = useState('');
+  const [Index, setIndex] = useState(Number);
+  const [path, setPath] = useState(Number);
+  const ModalOpciones = (fecha:string,Index:number,path:string) => {
+    setFecha(fecha);
+    setIndex(Index);
+    setPath(path);
+    setModalOpciones(!ModalOpcionesValor);
   };
 
   /* input */
@@ -36,10 +50,10 @@ export default function App() {
         try {
           const content = await RNFS.readFile(path, 'utf8');
           const parsedContent = JSON.parse(content);
-          dataArray.push({nombre: fileName, fecha: parsedContent.fecha, index: parsedContent.index });
+          dataArray.push({nombre: fileName, fecha: parsedContent.fecha, index: parsedContent.index, path: path });
         } catch (error) {
           console.error(`Error al leer el archivo ${fileName}:`, error);
-        }
+        } 
       }
       setData(dataArray);
       //console.log(data)
@@ -88,13 +102,13 @@ export default function App() {
     }
   };
 
-  const Tarjeta = ({nombre, fecha, index }) => {
+  const Tarjeta = ({nombre, fecha, index,path }) => {
     return (
       <View style={styles.tarjeta}>
 
         <Text>{`Fecha: ${fecha}`}</Text>
         {/* <Text>{`Index: ${index}`}</Text> */}
-        <Button color={'green'} title="Ingresar" onPress={() => deleteJsonFile(nombre)}/>
+        <Button color={'green'} title="Ingresar"  onPress={() => ModalOpciones(fecha,index,path)} />
         <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(nombre)}/>
       </View>
     );
@@ -104,16 +118,20 @@ export default function App() {
   return (
     
     <View style={styles.container}>
-        <View style={{flex:1, alignItems: 'center',paddingTop:'3%',backgroundColor:'#dce7bd',width:'100%'}}> 
-            <Image source={require('./assets/logo-patagoniafresh.png')} />
-        </View>
+
         
         <ScrollView >
+        <View>
 
+    </View>
+        <View style={{flex:1, alignItems: 'center',paddingTop:'3%',backgroundColor:'#f9fdee',width:'100%'}}> 
+            <Image source={require('./assets/logo-patagoniafresh.png')} />
+        </View>
           <View style = {styles.scroll}>
 
             {data.map((elemento, index) => (
-              <Tarjeta key={index} nombre = {elemento.nombre}  fecha={elemento.fecha} index={elemento.index} />
+              
+              <Tarjeta key={index} nombre = {elemento.nombre}   fecha={elemento.fecha} index={elemento.index} path = {elemento.path}  />
             ))}
           </View>
 
@@ -122,7 +140,7 @@ export default function App() {
 
          <View style={styles.botonAgregar}>
     
-          <Button title="Agregar formulario" onPress={toggleModal} />
+          <Button title="Agregar formulario" onPress={() => toggleModal()} />
           </View>
         {/*modal */}
         <Modal
@@ -158,14 +176,48 @@ export default function App() {
               />
             </View >
             <View style= {{paddingVertical:'5%'}}>
-            <Button title="Crear formulario" onPress={handleCreateJson} />
+            <Button title="Crear formulario" onPress={() => handleCreateJson()} />
             
-            <Button title="Cerrar" onPress={toggleModal} />
+            <Button title="Cerrar" onPress={() => toggleModal()} />
             </View>
-            
+
           </View>
         </View>
       </Modal>
+
+
+
+{/* modal de opciones */}
+
+<Modal
+        animationType="slide"
+        transparent={true}
+        visible={ModalOpcionesValor}
+        onRequestClose={ModalOpciones}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>Fecha: {fecha}</Text>
+            <View>
+            <Button color={'green'} title="REBP-01" onPress={() => { navigation.navigate('REBP-01'); ModalOpciones(null,null); }} />
+            <Text></Text>
+            <Button color={'green'} title="REBP-06" onPress={() =>  {navigation.navigate('REBP-06'); ModalOpciones(null,null); }}/>
+            <Text></Text>
+            <Button color={'green'} title="Cargar Excel" onPress={() =>  { ModalOpciones(); navigation.navigate('REBP-06')}}/>
+
+            </View >
+            <View style= {{paddingVertical:'5%'}}>
+
+            
+            <Button title="Cerrar" onPress={() => ModalOpciones(null,null)} />
+            </View>
+
+          </View>
+        </View>
+      </Modal>
+
+
+      
 
     </View>
   );
