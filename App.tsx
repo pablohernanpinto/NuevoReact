@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Modal, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
 import RNFS from 'react-native-fs';
-import FormsComp from './src/components/Forms'
-
-
+import DocumentPicker from 'react-native-document-picker';
+import XLSX from 'xlsx';
+import { readFile } from "react-native-fs";
+import deleteJsonFile from "./src/components/funciones/DeleteJson"
 
 export default function App({navigation}) {
   const [data, setData] = useState([]);
@@ -17,11 +18,12 @@ export default function App({navigation}) {
 
   const [fecha, setFecha] = useState('');
   const [Index, setIndex] = useState(Number);
-  const [path, setPath] = useState(Number);
-  const ModalOpciones = (fecha:string,Index:number,path:string) => {
+  const [nombre, setNombre] = useState(Number);
+  const ModalOpciones = (fecha:string,Index:number,nombre:string) => {
     setFecha(fecha);
-    setIndex(Index);
-    setPath(path);
+    setIndex(Index); 
+    setNombre(nombre);
+
     setModalOpciones(!ModalOpcionesValor);
   };
 
@@ -31,6 +33,9 @@ export default function App({navigation}) {
   const [Mes, setMes] = React.useState('');
   const [Anio, setAnio] = React.useState('');
 
+  /* archivos de excel */
+
+  const [excel,setExcel] = React.useState({})
 
   useEffect(() => {
     loadJsonFiles();
@@ -49,8 +54,9 @@ export default function App({navigation}) {
 
         try {
           const content = await RNFS.readFile(path, 'utf8');
+          console.log(content)
           const parsedContent = JSON.parse(content);
-          dataArray.push({nombre: fileName, fecha: parsedContent.fecha, index: parsedContent.index, path: path });
+          dataArray.push({nombre: fileName, fecha: parsedContent.fecha, index: parsedContent.index, path: path});
         } catch (error) {
           console.error(`Error al leer el archivo ${fileName}:`, error);
         } 
@@ -63,15 +69,52 @@ export default function App({navigation}) {
   };
 
 
+const pickDocument = async (nombre:string) => {
+  try {
+    console.log(nombre)
+    const result = await DocumentPicker.pick({
+      type: [DocumentPicker.types.xlsx],
+    });
+
+    if (result) {
+      const bstr = await readFile(result[0].uri, "ascii");
+      const workbook = XLSX.read(bstr, { type: "binary" });
+      const sheet1 = workbook.Sheets.Sheet1;
+      const keys = Object.keys(sheet1).filter((key) => /^[A-Za-z]/.test(key));
+      const valoresOrganizados: Record<string, any> = {};
+
+      keys.forEach((key) => {
+        const rowData = sheet1[key];
+        const rowIndex = key.slice(1);
+
+        if (!valoresOrganizados[rowIndex]) {
+          valoresOrganizados[rowIndex] = [];
+        }
+        valoresOrganizados[rowIndex].push(rowData.w);
+      });
+      setExcel(valoresOrganizados)
+      agregarJson(excel,nombre)
+    } else {
+      console.log('Selección de archivo cancelada');
+    }
+  } catch (err) {
+    console.error('Error al seleccionar el archivo:', err);
+  }
+};
+
+  const agregarJson = (excel:object,nombre:string) =>{
+    console.log(excel,nombre)
+  }
+
   const handleCreateJson = async () => {
     //console.log(data)
     const indexMasGrande = data.reduce((maxIndex, elemento) => {
       return elemento.index > maxIndex ? elemento.index : maxIndex;
     }, -1);
     try {
-      await createJsonFile(indexMasGrande+1, { fecha: Dia+'/'+Mes+'/'+Anio, index: Number(indexMasGrande)+1 });
+      await createJsonFile(indexMasGrande+1, { fecha: Dia+'/'+Mes+'/'+Anio, index: Number(indexMasGrande)+1,excel: false });
     } catch (error) {
-      await createJsonFile('0', { fecha: Dia+'/'+Mes+'/'+Anio, index: 0 });
+      await createJsonFile('0', { fecha: Dia+'/'+Mes+'/'+Anio, index: 0 , excel: false });
       //console.error('Error al crear el archivo JSON:', error);
     }
   }; 
@@ -102,14 +145,20 @@ export default function App({navigation}) {
     }
   };
 
+  
+  const imprimir = () => {
+    console.log(excel)
+  }
+
   const Tarjeta = ({nombre, fecha, index,path }) => {
     return (
       <View style={styles.tarjeta}>
-
-        <Text>{`Fecha: ${fecha}`}</Text>
+        
+        <Text style = {styles.texto}>{`Fecha: ${fecha}`}</Text>
         {/* <Text>{`Index: ${index}`}</Text> */}
-        <Button color={'green'} title="Ingresar"  onPress={() => ModalOpciones(fecha,index,path)} />
+        <Button color={'green'} title="Ingresar"  onPress={() => ModalOpciones(fecha,index,nombre)} />
         <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(nombre)}/>
+        <Button color={'red'} title="imprimir" onPress={() => imprimir()}/>
       </View>
     );
   };
@@ -129,9 +178,10 @@ export default function App({navigation}) {
         </View>
           <View style = {styles.scroll}>
 
-            {data.map((elemento, index) => (
-              
-              <Tarjeta key={index} nombre = {elemento.nombre}   fecha={elemento.fecha} index={elemento.index} path = {elemento.path}  />
+          {data
+            .sort((a, b) => b.index - a.index)
+            .map((elemento, index) => (
+              <Tarjeta key={index} nombre={elemento.nombre} fecha={elemento.fecha} index={elemento.index} path={elemento.path} />
             ))}
           </View>
 
@@ -142,7 +192,8 @@ export default function App({navigation}) {
     
           <Button title="Agregar formulario" onPress={() => toggleModal()} />
           </View>
-        {/*modal */}
+
+{/*modal */}
         <Modal
         animationType="slide"
         transparent={true}
@@ -154,17 +205,21 @@ export default function App({navigation}) {
             <Text style={styles.modalText}>Ingrese fecha de formulario</Text>
             <View style = {styles.fecha}>
               <TextInput
+                
                 style={styles.input}
                 onChangeText={setDia}
                 value={Dia}
                 placeholder="Dia"
+                placeholderTextColor='grey'
                 keyboardType="numeric"
               />
               <TextInput
+
                 style={styles.input}
                 onChangeText={setMes}
                 value={Mes}
                 placeholder="Mes"
+                placeholderTextColor='grey'
                 keyboardType="numeric"
               />
               <TextInput
@@ -172,11 +227,13 @@ export default function App({navigation}) {
                 onChangeText={setAnio}
                 value={Anio}
                 placeholder="Año"
+                placeholderTextColor='grey'
                 keyboardType="numeric"
               />
+              
             </View >
             <View style= {{paddingVertical:'5%'}}>
-            <Button title="Crear formulario" onPress={() => handleCreateJson()} />
+            <Button title="Crear formulario" onPress={() =>{ handleCreateJson();setAnio(null);setDia(null);setMes(null);toggleModal()}} />
             
             <Button title="Cerrar" onPress={() => toggleModal()} />
             </View>
@@ -199,25 +256,23 @@ export default function App({navigation}) {
           <View style={styles.modalContent}>
             <Text style={styles.modalText}>Fecha: {fecha}</Text>
             <View>
+            
             <Button color={'green'} title="REBP-01" onPress={() => { navigation.navigate('REBP-01'); ModalOpciones(null,null); }} />
             <Text></Text>
             <Button color={'green'} title="REBP-06" onPress={() =>  {navigation.navigate('REBP-06'); ModalOpciones(null,null); }}/>
-            <Text></Text>
-            <Button color={'green'} title="Cargar Excel" onPress={() =>  { ModalOpciones(); navigation.navigate('REBP-06')}}/>
+            <Text>{nombre}</Text>
+            <Button title="Seleccionar Excel" onPress={() => pickDocument(nombre)} />
 
             </View >
             <View style= {{paddingVertical:'5%'}}>
 
-            
-            <Button title="Cerrar" onPress={() => ModalOpciones(null,null)} />
+              <Button title="Cerrar" onPress={() => ModalOpciones(null,null)} />
+              
             </View>
 
           </View>
         </View>
       </Modal>
-
-
-      
 
     </View>
   );
@@ -249,7 +304,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo oscuro para el modal
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
   },
   modalContent: {
     backgroundColor: 'white',
@@ -258,6 +313,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalText: {
+    color:'black',
     fontSize: 18,
     marginBottom: 10,
   },
@@ -274,6 +330,11 @@ const styles = StyleSheet.create({
   scroll:{
     flexDirection:'row',
     flexWrap: 'wrap'
+  }
+  ,
+  texto:{
+    color: 'black'
+
   }
 
 });

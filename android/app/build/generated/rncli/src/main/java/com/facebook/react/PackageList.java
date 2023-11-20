@@ -17,6 +17,8 @@ import com.henninghall.date_picker.DatePickerPackage;
 import com.reactnativedocumentpicker.RNDocumentPickerPackage;
 // react-native-fs
 import com.rnfs.RNFSPackage;
+// react-native-permissions
+import com.zoontek.rnpermissions.RNPermissionsPackage;
 // react-native-safe-area-context
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 // react-native-screens
@@ -69,6 +71,7 @@ public class PackageList {
       new DatePickerPackage(),
       new RNDocumentPickerPackage(),
       new RNFSPackage(),
+      new RNPermissionsPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage()
     ));
