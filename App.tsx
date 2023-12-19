@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {ActivityIndicator, View, Text, StyleSheet, Button, Modal, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import {ActivityIndicator, View, Text, StyleSheet, Button, Modal, TextInput, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import XLSX from 'xlsx';
 import { readFile } from "react-native-fs";
-import imprimir from "./src/components/funciones/DeleteJson"
 
 export default function App({navigation}) {
 
@@ -175,7 +174,7 @@ const [data, setData] = useState<{
       // Escribe la cadena JSON actualizada en el archivo  
       await RNFS.writeFile(path, updatedContent, 'utf8'); 
   
-      // Vuelve a cargar los archivos JSON
+      // Vuelve a cargar los archivos JSONs
       loadJsonFiles();
       
     } catch (error) {
@@ -212,8 +211,6 @@ const [data, setData] = useState<{
 
     try {
       await RNFS.unlink(path); 
-      //console.log(`Archivo ${fileName} eliminado`);
-      // Actualizar la lista de archivos después de eliminar uno
       loadJsonFiles();
     } catch (error) {
       console.error(`Error al eliminar el archivo ${fileName}:`, error);
@@ -229,7 +226,8 @@ const [data, setData] = useState<{
         <Text style = {styles.texto}>{`Fecha: ${fecha}`}</Text> 
         <Text></Text> 
         {/* <Text>{`Index: ${index}`}</Text> */} 
-        <Button color={'green'} title="Ingresar"  onPress={() => ModalOpciones(nombre, fecha, index,path,dataExcel)} />
+        <Button title="Ingresar"  onPress={() => ModalOpciones(nombre, fecha, index,path,dataExcel)} />
+        <View style = {{paddingTop:5}}></View>
         <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(nombre)}/>
         {/* <Button color={'red'} title="imprimir" onPress={() => imprimir()}/>  */}
 {/*          <Button title="impriuir" onPress={() => prueba(index)} /> 
@@ -239,20 +237,35 @@ const [data, setData] = useState<{
   };
 
 
-  const AbrirREBP01 = (index:any) =>{
-//    console.log(data)
-
+  const AbrirREBP01 = (index:any) =>{  
     const objetoEncontrado = data.find(item => item.index === index);
-    console.log(objetoEncontrado);
 
-    navigation.navigate('REBP-01',{objetoEncontrado}) 
-  }
+    if ((objetoEncontrado?.excel)=== 'true') {
+      navigation.navigate('REBP-01',{objetoEncontrado})  
+
+    }
+    else{
+      console.log(index)
+      Alert.alert(
+        'Error',
+        'No se ha seleccionado ningun archivo excel.',
+        [
+          { 
+            text: 'Aceptar',
+            onPress: () => console.log('Aceptar presionado'),
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  } 
 
 
   const prueba = (index:any) => {
     const objetoEncontrado = data.find(item => item.index === index);
     console.log(objetoEncontrado);
   }
+
 {/* ------------------------------------------------------------------------ */}
 {/* ------------------------------------------------------------------------ */}
 {/* ------------------------------------------------------------------------ */}
@@ -267,9 +280,6 @@ const [data, setData] = useState<{
     <View style={styles.container}>
 
 {/* pagina de inicio con las tarjetas en pantalla */}
-
-
-
         <ScrollView >
         <View>
 
@@ -294,6 +304,9 @@ const [data, setData] = useState<{
          <View style={styles.botonAgregar}>
     
           <Button title="Agregar formulario" onPress={() => toggleModal()} />
+
+
+
           </View>
 
 
@@ -362,9 +375,9 @@ const [data, setData] = useState<{
             <Text style={styles.modalText}>Fecha: {fecha}</Text>
             <View>
 
-            <Button color={'green'} title="REBP-01" onPress={() => { AbrirREBP01(index);ModalOpciones('',0,0,'','');}} />
+            <Button  title="REBP-01" onPress={() => { AbrirREBP01(index);ModalOpciones('',0,0,'','');}} />
             <Text></Text>
-            <Button color={'green'} title="REBP-06" onPress={() =>  {navigation.navigate('REBP-06'); ModalOpciones('',0,0,'',''); }}/>
+            <Button  title="REBP-06" onPress={() =>  {navigation.navigate('REBP-06'); ModalOpciones('',0,0,'',''); }}/>
 
             <Text></Text>
 
@@ -395,8 +408,6 @@ const [data, setData] = useState<{
           <Text style = {{color:'white'}}>Cargando...</Text>
         </View>
       </Modal>
-
-
     </View>
   );
 }
