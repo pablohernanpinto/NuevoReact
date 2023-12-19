@@ -31,16 +31,18 @@ com.intento2.app-jetified-flipper-0.182.0-29 C:\Users\Pablo\.gradle\caches\trans
 com.intento2.app-jetified-emoji2-views-helper-1.2.0-30 C:\Users\Pablo\.gradle\caches\transforms-3\e476447430bdc86d50f956c4c4777a9c\transformed\jetified-emoji2-views-helper-1.2.0\res
 com.intento2.app-jetified-annotation-experimental-1.1.0-31 C:\Users\Pablo\.gradle\caches\transforms-3\ea88610a3c8be13450373fa73372379b\transformed\jetified-annotation-experimental-1.1.0\res
 com.intento2.app-drawerlayout-1.1.1-32 C:\Users\Pablo\.gradle\caches\transforms-3\f7136e33895596704e2928c39d7df1cb\transformed\drawerlayout-1.1.1\res
-com.intento2.app-pngs-33 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\app\build\generated\res\pngs\debug
-com.intento2.app-resValues-34 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\app\build\generated\res\resValues\debug
-com.intento2.app-rs-35 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\app\build\generated\res\rs\debug
-com.intento2.app-mergeDebugResources-36 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\app\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.intento2.app-mergeDebugResources-37 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\app\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.intento2.app-merged_res-38 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\app\build\intermediates\merged_res\debug
-com.intento2.app-debug-39 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\app\src\debug\res
-com.intento2.app-main-40 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\android\app\src\main\res
-com.intento2.app-packaged_res-41 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-date-picker\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-42 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-document-picker\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-43 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-fs\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-44 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-45 E:\ucm\semestre 10\modulo integrador\react\intento2 - copia\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug
+com.intento2.app-pngs-33 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\generated\res\pngs\debug
+com.intento2.app-resValues-34 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\generated\res\resValues\debug
+com.intento2.app-rs-35 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\generated\res\rs\debug
+com.intento2.app-mergeDebugResources-36 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.intento2.app-mergeDebugResources-37 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.intento2.app-merged_res-38 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\intermediates\merged_res\debug
+com.intento2.app-debug-39 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\src\debug\res
+com.intento2.app-main-40 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\src\main\res
+com.intento2.app-packaged_res-41 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-date-picker\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-42 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-document-picker\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-43 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-file-access\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-44 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-fs\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-45 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-permissions\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-46 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-47 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import com.henninghall.date_picker.DatePickerPackage;
 // react-native-document-picker
 import com.reactnativedocumentpicker.RNDocumentPickerPackage;
+// react-native-file-access
+import com.alpha0010.fs.FileAccessPackage;
 // react-native-fs
 import com.rnfs.RNFSPackage;
 // react-native-permissions
@@ -70,6 +72,7 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new DatePickerPackage(),
       new RNDocumentPickerPackage(),
+      new FileAccessPackage(),
       new RNFSPackage(),
       new RNPermissionsPackage(),
       new SafeAreaContextPackage(),

@@ -26,7 +26,7 @@ import Cuatro from '../recuadros/Cuatro';
 
   return (
     <ScrollView> 
-      <View>
+      <View style = {styles.fondo}>
             <View >
               <Uno></Uno>
             </View>
@@ -49,6 +49,9 @@ import Cuatro from '../recuadros/Cuatro';
 export default REBRP61COMP;
 
   const styles = StyleSheet.create({
+    fondo:{
+      backgroundColor:'#f9fdee',
+    },
     Container: {
       flex:1,
     },

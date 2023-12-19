@@ -5,14 +5,59 @@ import REBRP61COMP from './formularios/REBRP6-1COMP'
 import REBP01 from './formularios/REBP-01';
 
 
-export default function FormsComp({navigation}) { // Cambiado el nombre a "App" en lugar de "app"
-
-    
+export default function FormsComp() { // Cambiado el nombre a "App" en lugar de "app"
+    const [indexColor, SetKey] = useState(0);
+    const colors = ['#f7f9f1', '#efeff7'];
+    const backgroundColor = colors[indexColor] || 'a';
+    const borderColorLeft = indexColor === 0 ? '#d2e1b1' : 'black';
+    const borderColorRight = indexColor === 1 ? '#e6e6fa' : 'black';
+    const visible = indexColor === 0 ? true : false;
+  
+    function section(indexColor) {
+      SetKey(indexColor = indexColor);
+    }
 
     return (
         <View style={[styles.container, { backgroundColor }]}>
-          <Button color={'green'} title="Ingresar" onPress={() =>  navigation.navigate('REBP-01')}/>
-          <Button color={'green'} title="Ingresar" onPress={() =>  navigation.navigate('REBP-06')}/>
+          <View style={{ alignItems: 'center',paddingBottom:'5%'}}> 
+            {/* <Image source={require('./../../assets/')} /> */}
+          </View>
+          <View style={{ flexDirection: 'row'}}>
+    
+            <TouchableOpacity
+              onPress={() => section(0)}
+              style={[styles.touchableStyleLeft, { borderColor: borderColorLeft }]}>
+              <Text style={styles.textTouch}>RE.BP-06</Text>
+            </TouchableOpacity>
+    
+            <TouchableOpacity
+              onPress={() => section(1)}
+              style={[styles.touchableStyleRight, { borderColor: borderColorRight }]}>
+              <Text style={styles.textTouch}>RE.BP-01</Text>
+            </TouchableOpacity>
+    
+          </View>
+    
+          <ScrollView> 
+            <View>
+    
+              {visible === true &&
+                <View style={styles.elementsOfPage}>
+                  <REBRP61COMP />
+                </View>
+    
+                
+              }
+    
+              {visible === false &&
+                <View style={styles.elementsOfPage}>
+                  <REBP01></REBP01>
+                </View>
+              }
+            </View>
+          </ScrollView> 
+    
+
         </View>
       );
 }

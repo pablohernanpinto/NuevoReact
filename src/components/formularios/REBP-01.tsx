@@ -4,7 +4,10 @@ import { MultipleSelectList } from 'react-native-dropdown-select-list';
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function REBP01({navigate}) {
+export default function REBP01({route}) {
+
+  const orderedColumns = ["ID", "Fecha", "Material", "Numero", "Tipo", "Valor"];
+
   const [data, setData] = useState([{ key: '1', values: ['', '', '', '', ''] }]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -18,9 +21,17 @@ export default function REBP01({navigate}) {
     {key:'6', value:'*Revisado'},
   ];
 
-  const navigation = useNavigation();
-  const columnPlaceholders = ['Lote', 'Pallet', 'N# TB', 'Peso Neto', 'Sello'];
+  const { objetoEncontrado } = route.params;
+  const imprimirInfo = () => {
+    console.log(objetoEncontrado,' esto esta recibido');
+  
+  }
 
+  
+
+  const navigation = useNavigation(); 
+  const columnPlaceholders = ['Lote', 'Pallet', 'N# TB', 'Peso Neto', 'Sello'];
+/* 
   const addRow = (numRows) => {
     const newRows = Array.from({ length: numRows }, (_, i) => ({
       key: String(Date.now() + i), // Asigna una key única usando Date.now() y un índice
@@ -28,9 +39,9 @@ export default function REBP01({navigate}) {
     }));
   
     setData([...data, ...newRows]);
-  };
+  }; */
   
-  const handleChangeText = (text, rowIndex, colIndex) => {
+/*   const handleChangeText = (text, rowIndex, colIndex) => {
     const updatedData = data.map((row, i) => {
       if (i === rowIndex) {
         const updatedValues = [...row.values];
@@ -40,32 +51,15 @@ export default function REBP01({navigate}) {
       return row;
     });
     setData(updatedData);
-  };
+  }; */
 
-  const handleButtonPress = (rowIndex) => {
-    setModalContent(
-      <View>
-        <Text style={[styles.titulo, {fontSize: 18}]}>Observaciones</Text>
-        <View>
-          <MultipleSelectList 
-            setSelected={(val) => setOpciones(val)} 
-            boxStyles={styles.box}
-            dropdownStyles={styles.box}
-            data={opcionesList} 
-            save="value"
-            label="revision"
-          />
-        </View>
-      </View>
-    );
-    setModalVisible(true);
-  };
+/*  */
 
-  const closeModal = () => {
+/*   const closeModal = () => {
     setModalVisible(false);
-  };
+  }; */
 
-  const renderItem = ({ item, index }) => (
+/*   const renderItem = ({ item, index }) => (
     <View style={{ flexDirection: 'row', paddingBottom: 5 }}>
       <Text>{index + 1}. </Text>
       {item.values.map((value, colIndex) => (
@@ -77,26 +71,46 @@ export default function REBP01({navigate}) {
           placeholder={columnPlaceholders[colIndex]}
         />
       ))}
-      <Button title="Detalle" onPress={() => handleButtonPress(index)} />
-    </View>
-  );
+      <Button title="Detalle" onPress={() => handleButtonPress(index)} /> */
+
+  
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
+    <View style={{ backgroundColor: '#f9fdee',flex: 1, justifyContent: 'center', padding: 10 }}>
       <ScrollView>
-        {data.map((item, index) => renderItem({ item, index }))}
-      </ScrollView>
+        <View style={styles.container}>
+            {/* Renderizar la primera fila con los nombres de las columnas */}
+            <View style={styles.row}>
+              {orderedColumns.map(column => (
+                <Text key={column} style={styles.cell}>{column}</Text>
+              ))}
+            </View>
 
+            {/* Renderizar las filas con la información de cada elemento */}
+            {objetoEncontrado.dataExcel.map(item => (
+              <View style={styles.row} key={item.ID}>
+                {orderedColumns.map(column => (
+                  <Text key={column} style={styles.cell}>{item[column]}</Text>
+                ))}
+              </View>
+            ))}
+          </View> 
+      </ScrollView> 
+
+      <View>
+
+
+      </View>
       <View style = {{flexDirection:'row',display:'flex'}}>
-        <Button title="Agregar 10 Filas" onPress={() => addRow(10)} />
 
+        <Button title="probar" onPress={() => imprimirInfo()} />
         <Button color={'green'} title="Ingresar" onPress={() =>  navigation.navigate('REBP-06')}/>
 
 
       </View>
-      
+       
 
-      <Modal
+{/*       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -109,7 +123,7 @@ export default function REBP01({navigate}) {
             <Button title="Cerrar" onPress={closeModal} />
           </View>
         </View>
-      </Modal>
+      </Modal> */}
     </View>
   );
 }
@@ -147,5 +161,20 @@ const styles = StyleSheet.create({
   selectList:{
     backgroundColor:'white',
     width: '95%',
-  }
+  },
+  container: {
+    flex: 1,
+    margin: 10,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    paddingVertical: 5,
+  },
+  cell: {
+    flex: 1,
+    textAlign: 'center',
+  },
 });
