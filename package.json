@@ -23,6 +23,7 @@
     "react-native-file-access": "^3.0.4",
     "react-native-fs": "^2.20.0",
     "react-native-modal": "^13.0.1",
+    "react-native-pagination": "^1.5.5",
     "react-native-permissions": "^3.10.1",
     "react-native-safe-area-context": "^4.7.4",
     "react-native-screens": "^3.27.0",

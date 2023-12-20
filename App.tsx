@@ -157,6 +157,7 @@ const [data, setData] = useState<{
 
  
   const agregarJson = async (excel:object,nombre:any,path:any) => {
+
     try {
       // Lee el contenido actual del archivo JSON
       const currentContent = await RNFS.readFile(path);
@@ -284,7 +285,7 @@ const [data, setData] = useState<{
         <View>
 
         </View>
-          <View style={{flex:1, alignItems: 'center',paddingTop:'3%',backgroundColor:'#f9fdee',width:'100%'}}> 
+          <View style={{flex:1, alignItems: 'center',paddingTop:'3%',backgroundColor:'#fcfdf8',width:'100%'}}> 
             <Image source={require('./assets/logo-patagoniafresh.png')} />
 
           </View>
@@ -414,7 +415,7 @@ const [data, setData] = useState<{
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:'#f9fdee',
+    backgroundColor:'#fcfdf8',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

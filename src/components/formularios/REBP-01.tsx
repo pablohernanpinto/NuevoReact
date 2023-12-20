@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, Modal, StyleSheet, ScrollView,TouchableHighlight } from 'react-native'; // Asegúrate de tener ScrollView importado
+import { View, Text, TextInput, Button, Modal, StyleSheet, ScrollView,TouchableHighlight, Image, ActivityIndicator } from 'react-native'; // Asegúrate de tener ScrollView importado
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
 import { useNavigation } from '@react-navigation/native';
+import RNFS from 'react-native-fs';
 
 
 export default function REBP01({route}) {
 
   const orderedColumns = ["ID", "Fecha", "Material", "Numero", "Tipo", "Valor"];
   const { objetoEncontrado } = route.params;
+
+
+  const [ModalOpcionesValorCarga, setModalOpcionesCarga] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -22,10 +26,42 @@ export default function REBP01({route}) {
 
   const navigation = useNavigation();
 
-  const imprimirInfo = () => {
-    console.log(objetoEncontrado,'este es el objeto encontrado')
-    console.log(editedData, ' esto está modificado');
+  const ModalOpcionesCargaVisilidad = (tiempo: number) => {
+    setModalOpcionesCarga(true);
+  
+    setTimeout(() => {
+      navigation.navigate('Formularios')
+      setModalOpcionesCarga((prevValue) => !prevValue);
+    }, tiempo);
   };
+
+  const imprimirInfo = async () => {
+
+    try {
+      // Lee el contenido actual del archivo JSON
+      const currentContent = await RNFS.readFile(objetoEncontrado.path);
+  
+      // Analiza el contenido para convertirlo en un objeto JavaScript
+      const currentData = JSON.parse(currentContent);
+  
+      // Agrega nueva información al objeto (por ejemplo, un nuevo campo 'gato')
+      currentData.dataExcel = editedData;
+      currentData.excel  = 'true'
+  
+      // Convierte el objeto actualizado en una cadena JSON
+      const updatedContent = JSON.stringify(currentData);
+      
+      // Escribe la cadena JSON actualizada en el archivo  
+      await RNFS.writeFile(objetoEncontrado.path, updatedContent, 'utf8'); 
+  
+      // Vuelve a cargar los archivos JSONs
+      ModalOpcionesCargaVisilidad(2000)
+      
+    } catch (error) {
+      console.error(error);
+    } 
+  };
+
 
   useEffect(() => {
     // Actualiza los datos originales cuando cambia la página
@@ -35,13 +71,13 @@ export default function REBP01({route}) {
   }, [currentPage, objetoEncontrado.dataExcel]);
 
   return (
-    <View style={{ backgroundColor: '#f9fdee', flex: 1, justifyContent: 'center', padding: 1 }}>
+    <View style={{ backgroundColor: '#fcfdf8', flex: 1, justifyContent: 'center', padding: 1 }}>
       <ScrollView>
         <View style={styles.container}>
           {/* Renderizar la primera fila con los nombres de las columnas */}
           <View style={styles.row}>
             {orderedColumns.map(column => (
-              <Text key={column} style={styles.cell}>
+              <Text  key={column} style={styles.cell}>
                 {column}
               </Text>
             ))}
@@ -73,30 +109,42 @@ export default function REBP01({route}) {
         </View>
       </ScrollView>
 
-      <View style={{ flexDirection: 'row', display: 'flex' }}>
-        <Button title="probar" onPress={imprimirInfo} />
+      <View style={styles.botonAgregar}>
+        <Button  title="Guardar" onPress={imprimirInfo} />
         <Text style={{ paddingLeft: 10 }}></Text>
-        <Button color={'green'} title="REBP-06" onPress={() => navigation.navigate('REBP-06')} />
-        <Button color={'green'} title="prueba" onPress={imprimirInfo} />
-        <TouchableHighlight style = {{styles}}>
-          <Text>Touch Here</Text>
-      </TouchableHighlight>
+
+
       </View>
 
       {/* Agregar controles de paginación */}
-      <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10,bottom:10 }}>
         <Button
           title="Anterior"
           onPress={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
           disabled={currentPage === 1}
         />
-        <Text style={{ marginHorizontal: 10 }}>{`Página ${currentPage}`}</Text>
+        <Text style={{ marginHorizontal: 10,fontWeight:'bold',fontSize:20 }}>{`Página ${currentPage}`}</Text>
         <Button
           title="Siguiente"
           onPress={() => setCurrentPage(prevPage => Math.min(prevPage + 1, Math.ceil(originalData.length / itemsPerPage)))}
           disabled={endIndex >= originalData.length}
         />
       </View>
+
+      {/* modal de pantalla de carga */}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={ModalOpcionesValorCarga}
+        onRequestClose={ModalOpcionesCargaVisilidad}
+      >
+        <View style={styles.modalContainer}>
+        <ActivityIndicator size="large" color="#00ff00" />
+          <Text style = {{color:'white'}}>Guardando...</Text>
+        </View>
+      </Modal>
+
     </View>
   );
 }
@@ -113,8 +161,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     paddingVertical: 5,
+    
   },
   cell: {
+    fontSize:15,
+    fontWeight:'bold',
     flex: 1,
     textAlign: 'center',
     alignItems:'center'
@@ -124,5 +175,16 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     paddingHorizontal: 5, // Ajusta el espaciado horizontal del TextInput
+  },
+  botonAgregar:{
+    position: 'absolute', 
+    bottom: 50, 
+    right: 20, 
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
   },
 });
