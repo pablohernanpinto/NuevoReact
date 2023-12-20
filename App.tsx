@@ -383,7 +383,6 @@ const [data, setData] = useState<{
             <Text></Text>
 
             <Button title="Seleccionar Excel" onPress={() => pickDocument(nombre,path)} />
-{/*             <Button title="impriuirdentro" onPress={() => prueba(index)} /> */}
 
             </View >
             <View style= {{paddingVertical:'5%'}}>
@@ -405,7 +404,7 @@ const [data, setData] = useState<{
         onRequestClose={ModalOpcionesCargaVisilidad}
       >
         <View style={styles.modalContainer}>
-        <ActivityIndicator size="large" color="#00ff00" />
+          <ActivityIndicator size="large" color="#00ff00" />
           <Text style = {{color:'white'}}>Cargando...</Text>
         </View>
       </Modal>

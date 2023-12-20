@@ -1,17 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Button, Modal, StyleSheet, ScrollView,TouchableHighlight, Image, ActivityIndicator } from 'react-native'; // Asegúrate de tener ScrollView importado
-import { MultipleSelectList } from 'react-native-dropdown-select-list';
+import { MultipleSelectList, SelectList } from 'react-native-dropdown-select-list';
 import { useNavigation } from '@react-navigation/native';
 import RNFS from 'react-native-fs';
 
 
 export default function REBP01({route}) {
 
+  const [selected, setSelected] = React.useState([]);
+  const [indexArrelgo,setIndexArreglo] = React.useState(Number)
+
+  const opcionesList = [
+    {key:'1', value:'Hongos'},
+    {key:'2', value:'Boquilla cerrada'},
+    {key:'3', value:'Boquilla limpia'},
+    {key:'4', value:'Bolsas limpias'},
+    {key:'5', value:'Bolsas sin rotura'},
+    {key:'6', value:'*Revisado'},
+  ];
+
   const orderedColumns = ["ID", "Fecha", "Material", "Numero", "Tipo", "Valor"];
   const { objetoEncontrado } = route.params;
 
 
   const [ModalOpcionesValorCarga, setModalOpcionesCarga] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -25,6 +40,10 @@ export default function REBP01({route}) {
   const dataToShow = editedData.slice(startIndex, endIndex);
 
   const navigation = useNavigation();
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   const ModalOpcionesCargaVisilidad = (tiempo: number) => {
     setModalOpcionesCarga(true);
@@ -70,12 +89,23 @@ export default function REBP01({route}) {
     setEditedData([...objetoEncontrado.dataExcel]);
   }, [currentPage, objetoEncontrado.dataExcel]);
 
+  const AgregarCondicion = () => {
+    editedData[indexArrelgo]["Observaciones"] = selected
+    setSelected([])
+    closeModal()
+  }
+
+  const handleButtonPress = (rowIndex: number) => {
+    setIndexArreglo((currentPage-1)*10+rowIndex)
+    setModalVisible(true);
+  };
+
   return (
     <View style={{ backgroundColor: '#fcfdf8', flex: 1, justifyContent: 'center', padding: 1 }}>
       <ScrollView>
         <View style={styles.container}>
           {/* Renderizar la primera fila con los nombres de las columnas */}
-          <View style={styles.row}>
+          <View style={[styles.row,{paddingRight:'9%'}]}>
             {orderedColumns.map(column => (
               <Text  key={column} style={styles.cell}>
                 {column}
@@ -104,17 +134,13 @@ export default function REBP01({route}) {
                   )}
                 </View>
               ))}
+              <Button title="Detalle" onPress={() => handleButtonPress(rowIndex)} />
             </View>
+            
           ))}
         </View>
       </ScrollView>
 
-      <View style={styles.botonAgregar}>
-        <Button  title="Guardar" onPress={imprimirInfo} />
-        <Text style={{ paddingLeft: 10 }}></Text>
-
-
-      </View>
 
       {/* Agregar controles de paginación */}
       <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10,bottom:10 }}>
@@ -129,7 +155,13 @@ export default function REBP01({route}) {
           onPress={() => setCurrentPage(prevPage => Math.min(prevPage + 1, Math.ceil(originalData.length / itemsPerPage)))}
           disabled={endIndex >= originalData.length}
         />
+
+        <View style={styles.botonAgregar}>
+          <Button  title="Guardar" onPress={imprimirInfo} />
+        </View>
+
       </View>
+      
 
       {/* modal de pantalla de carga */}
 
@@ -145,6 +177,26 @@ export default function REBP01({route}) {
         </View>
       </Modal>
 
+      {/* modal de observaciones */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeModal}
+      >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
+            <MultipleSelectList 
+                setSelected={(val:any) => {setSelected(val)}} 
+                data={opcionesList} 
+                save="value"
+                label="Categories"
+            />
+            <Text></Text>
+            <Button title="Cerrar" onPress={AgregarCondicion} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -177,9 +229,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5, // Ajusta el espaciado horizontal del TextInput
   },
   botonAgregar:{
-    position: 'absolute', 
-    bottom: 50, 
-    right: 20, 
+    display:'flex',
+    
+
   },
   modalContainer: {
     flex: 1,
