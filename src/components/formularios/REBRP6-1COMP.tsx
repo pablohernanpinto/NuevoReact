@@ -5,7 +5,9 @@ import Dos from '../recuadros/Dos';
 import Tres from '../recuadros/Tres';
 import Cuatro from '../recuadros/Cuatro';
 
- const REBRP61COMP = ({navigate}) =>{
+ const REBRP61COMP = ({route}) =>{
+    const { informacionObtenida } = route.params;
+
     const [checkBoxStates, setCheckBoxStates] = useState([false, false]);
     const [text, onChangeText] = React.useState('');
     const [text1, onChangeText1] = React.useState('');
@@ -50,7 +52,7 @@ export default REBRP61COMP;
 
   const styles = StyleSheet.create({
     fondo:{
-      backgroundColor:'#f9fdee',
+      backgroundColor:'#fcfdf8',
     },
     Container: {
       flex:1,

@@ -8,7 +8,6 @@ import { readFile } from "react-native-fs";
 export default function App({navigation}) {
 
   
-const [isLoading, setIsLoading] = useState(false);
 
 
 const [data, setData] = useState<{
@@ -18,6 +17,7 @@ const [data, setData] = useState<{
   path: string;
   excel: any;
   dataExcel:object,
+  rebp06:any,
 }[]>([]);
   
   /* modal */
@@ -88,7 +88,14 @@ const [data, setData] = useState<{
           const parsedContent = JSON.parse(content);
 /*           console.log('------------------')
           console.log(parsedContent,'this') */
-          dataArray.push({nombre: fileName, fecha: parsedContent.fecha, index: parsedContent.index, path: path, excel: parsedContent.excel, dataExcel : parsedContent.dataExcel||{} });
+          dataArray.push({nombre: fileName,
+            fecha: parsedContent.fecha,
+            index: parsedContent.index,
+            path: path,
+            excel: parsedContent.excel,
+            dataExcel : parsedContent.dataExcel||{},
+            rebp06:parsedContent.rebp06
+          });
         } catch (error) { 
           console.error(`Error al leer el archivo ${fileName}:`, error);
         }  
@@ -188,14 +195,14 @@ const [data, setData] = useState<{
     const indexMasGrande = data.reduce((maxIndex, elemento) => {
       return elemento.index > maxIndex ? elemento.index : maxIndex;}, -1);
     try {
-      await createJsonFile(String(indexMasGrande+1), { fecha: Dia+'/'+Mes+'/'+Anio, index: Number(indexMasGrande)+1,excel: false });
+      await createJsonFile(String(indexMasGrande+1), { fecha: Dia+'/'+Mes+'/'+Anio, index: Number(indexMasGrande)+1,excel: false, rebp06:false });
     } catch (error) { 
-      await createJsonFile('0', { fecha: Dia+'/'+Mes+'/'+Anio, index: 0 , excel: false });
+      await createJsonFile('0', { fecha: Dia+'/'+Mes+'/'+Anio, index: 0 , excel: false, rebp06:false });
       //console.error('Error al crear el archivo JSON:', error);
     }
   }; 
 
-  const createJsonFile = async (fileName: string, content: {fecha:string,index:Number, excel: boolean }) => {
+  const createJsonFile = async (fileName: string, content: {fecha:string,index:Number, excel: boolean, rebp06:boolean }) => {
     
     const path = RNFS.DocumentDirectoryPath + `/${fileName}.json`;
 
@@ -226,7 +233,6 @@ const [data, setData] = useState<{
         
         <Text style = {styles.texto}>{`Fecha: ${fecha}`}</Text> 
         <Text></Text> 
-        {/* <Text>{`Index: ${index}`}</Text> */} 
         <Button title="Ingresar"  onPress={() => ModalOpciones(nombre, fecha, index,path,dataExcel)} />
         <View style = {{paddingTop:5}}></View>
         <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(nombre)}/>
@@ -246,7 +252,6 @@ const [data, setData] = useState<{
 
     }
     else{
-      console.log(index)
       Alert.alert(
         'Error',
         'No se ha seleccionado ningun archivo excel.',
@@ -260,6 +265,33 @@ const [data, setData] = useState<{
       );
     }
   } 
+
+
+  const AbrirREBP06 = (index: any) => {
+    const objetoEncontrado = data.find(item => item.index === index);
+/*     console.log((objetoEncontrado?.rebp06 )== false) */
+    if(objetoEncontrado?.rebp06 === false){
+      navigation.navigate('REBP-06',{objetoEncontrado});
+    }
+    else{
+      Alert.alert(
+        'Alerta!',
+        'Ya a sido creado un formulario REBP-06, ¿Desea continuar?',
+        [
+          { 
+            text: 'Continuar',
+            onPress: () => navigation.navigate('REBP-06',{objetoEncontrado}),
+          },
+          { 
+            text: 'Volver',
+          },
+          
+        ],
+        { cancelable: false }
+      );
+
+    }
+  }
 
 
   const prueba = (index:any) => {
@@ -353,7 +385,7 @@ const [data, setData] = useState<{
             </View >
             <View style= {{paddingVertical:'5%'}}>
             <Button title="Crear formulario" onPress={() =>{ handleCreateJson();setAnio('');setDia('');setMes('');toggleModal()}} />
-            
+            <View style = {{paddingTop:5}}></View>
             <Button title="Cerrar" onPress={() => toggleModal()} />
             </View>
 
@@ -378,7 +410,7 @@ const [data, setData] = useState<{
 
             <Button  title="REBP-01" onPress={() => { AbrirREBP01(index);ModalOpciones('',0,0,'','');}} />
             <Text></Text>
-            <Button  title="REBP-06" onPress={() =>  {navigation.navigate('REBP-06'); ModalOpciones('',0,0,'',''); }}/>
+            <Button  title="REBP-06" onPress={() =>  { AbrirREBP06(index); ModalOpciones('',0,0,'',''); }}/>
 
             <Text></Text>
 

@@ -27,7 +27,6 @@ export default function REBP01({route}) {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
