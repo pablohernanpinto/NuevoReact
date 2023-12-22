@@ -70,6 +70,7 @@ const [data, setData] = useState<{
 
   useEffect(() => {
     loadJsonFiles();
+
   }, []);
 
   const loadJsonFiles = async () => {
@@ -94,7 +95,11 @@ const [data, setData] = useState<{
             path: path,
             excel: parsedContent.excel,
             dataExcel : parsedContent.dataExcel||{},
-            rebp06:parsedContent.rebp06
+            rebp06:parsedContent.rebp06,
+            rebp06R1:parsedContent.rebp06R1||{},
+            rebp06R2:parsedContent.rebp06R2||{},
+            rebp06R3:parsedContent.rebp06R3||{},
+            rebp06R4:parsedContent.rebp06R4||{},
           });
         } catch (error) { 
           console.error(`Error al leer el archivo ${fileName}:`, error);
@@ -202,7 +207,7 @@ const [data, setData] = useState<{
     }
   }; 
 
-  const createJsonFile = async (fileName: string, content: {fecha:string,index:Number, excel: boolean, rebp06:boolean }) => {
+  const createJsonFile = async (fileName: string, content: {fecha:string,index:Number, excel: boolean, rebp06:boolean}) => {
     
     const path = RNFS.DocumentDirectoryPath + `/${fileName}.json`;
 
@@ -237,8 +242,9 @@ const [data, setData] = useState<{
         <View style = {{paddingTop:5}}></View>
         <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(nombre)}/>
         {/* <Button color={'red'} title="imprimir" onPress={() => imprimir()}/>  */}
-{/*          <Button title="impriuir" onPress={() => prueba(index)} /> 
- */}
+        <View style = {{paddingTop:5}}></View>
+        <Button title="Imprimir Data" onPress={() => prueba(index)} /> 
+
       </View> 
     );  
   };
@@ -270,6 +276,7 @@ const [data, setData] = useState<{
   const AbrirREBP06 = (index: any) => {
     const objetoEncontrado = data.find(item => item.index === index);
 /*     console.log((objetoEncontrado?.rebp06 )== false) */
+    console.log(objetoEncontrado)
     if(objetoEncontrado?.rebp06 === false){
       navigation.navigate('REBP-06',{objetoEncontrado});
     }
@@ -294,9 +301,10 @@ const [data, setData] = useState<{
   }
 
 
-  const prueba = (index:any) => {
+  const prueba = async (index:any) => {
     const objetoEncontrado = data.find(item => item.index === index);
-    console.log(objetoEncontrado);
+    const updatedContentAfterWrite = await RNFS.readFile(objetoEncontrado!.path);
+    console.log('contenido actualizado:', updatedContentAfterWrite);
   }
 
 {/* ------------------------------------------------------------------------ */}
@@ -338,11 +346,7 @@ const [data, setData] = useState<{
     
           <Button title="Agregar formulario" onPress={() => toggleModal()} />
 
-
-
           </View>
-
-
 
 {/*modal de agregar tarjeta */}
         <Modal
@@ -413,6 +417,8 @@ const [data, setData] = useState<{
             <Button  title="REBP-06" onPress={() =>  { AbrirREBP06(index); ModalOpciones('',0,0,'',''); }}/>
 
             <Text></Text>
+
+
 
             <Button title="Seleccionar Excel" onPress={() => pickDocument(nombre,path)} />
 

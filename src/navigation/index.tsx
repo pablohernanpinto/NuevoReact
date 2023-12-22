@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Appearance, useColorScheme } from 'react-native'; // Agrega Appearance aquí
+import {useColorScheme } from 'react-native'; // Agrega Appearance aquí
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import App from '../../App';

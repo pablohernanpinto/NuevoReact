@@ -1,26 +1,69 @@
 import React, { useEffect, useState } from 'react';
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Button, Modal, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { MultipleSelectList, SelectList } from 'react-native-dropdown-select-list';
-import InputText from '../elements/inputText';
+import RNFS from 'react-native-fs';
+import { useNavigation } from '@react-navigation/native';
 
- const REBRP61COMP = ({route}) =>{
-  const { informacionObtenida } = route.params;
 
+const REBRP61COMP = ({route}) =>{
+  const { objetoEncontrado } = route.params;
+  const navigation = useNavigation();
+  const [ModalOpcionesValorCarga, setModalOpcionesCarga] = useState(false);
+
+  
+  useEffect(() => { 
+    
+  }, []);
+ 
+ 
+  const AñadirAjson = async (formulario: number, editedData: any) => {
+    console.log(editedData, ' este es editedData ');
+    try {
+      // Lee el contenido actual del archivo JSON 
+      const currentContent = await RNFS.readFile(objetoEncontrado.path);
+   
+      // Analiza el contenido para convertirlo en un objeto JavaScript
+      const currentData = JSON.parse(currentContent);
+  
+      // Agrega nueva información al objeto
+      if (formulario === 1) {
+        currentData.rebp06R1 = editedData.RecuadroUno;
+      } else if (formulario === 2) {
+        currentData.rebp06R2 = editedData.RecuadroDos;
+      } else if (formulario === 3) {
+        currentData.rebp06R3 = editedData.RecuadroTres;
+      } else if (formulario === 4) {
+        currentData.rebp06R4 = editedData.RecuadroCuatro; 
+      }
+  
+      currentData.rebp06 = 'true';
+  
+      // Convierte el objeto actualizado en una cadena JSON
+      const updatedContent = JSON.stringify(currentData);
+  
+      // Escribe la cadena JSON actualizada en el archivo
+      await RNFS.writeFile(objetoEncontrado.path, updatedContent, 'utf8');
+  
+      // Vuelve a cargar los archivos JSONs 
+      ModalOpcionesCargaVisilidad(500,false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+
+  const ModalOpcionesCargaVisilidad = (tiempo: number,salir:boolean) => {
+    setModalOpcionesCarga(true);
+  
+    setTimeout(() => {
+      setModalOpcionesCarga((prevValue) => !prevValue);
+      if(salir){
+        navigation.navigate('Formularios')
+      }
+    }, tiempo);
+  };
     ////////////////////////////////primer formulario
 
-    const [dataREBP06Num02, setDataREBP06Num02] = useState<{
-      RecuadroDos: {
-        MarcaEnLosEnvases: any;
-        RequerimientosDeCliente: any;
-        crop:any;
-        loteNrR2:any;
-        envaseNr:any;
-        diaProducc:any;
-        containerNr:any;
-        contramuestras:any;
-      };
-    }[]>([]);
-  
     const agregarJson01 = () => {
       const RecuadroUnoAgregar = {
         RecuadroUno: {
@@ -38,16 +81,11 @@ import InputText from '../elements/inputText';
           Revision: revision,
         },
       };
-  
-      console.log(RecuadroUnoAgregar)
+      AñadirAjson(1,RecuadroUnoAgregar)
+      //console.log(RecuadroUnoAgregar)
     };
 
-  
-    useEffect(() => {
-      // Esta función se ejecutará después de que dataREBP06 se haya actualizado
-      console.log();
-      
-    }, []);
+
 
     const [loteNr, setLoteNr] = React.useState('');
     const [nrEnvases, setNrEnvases] = React.useState('');
@@ -127,8 +165,7 @@ import InputText from '../elements/inputText';
           contramuestras:opciones,
         },
       };
-  
-      console.log(RecuadroDosAgregar)
+       AñadirAjson(2,RecuadroDosAgregar)
     };
 
     const [crop, setCrop] = React.useState('');
@@ -167,19 +204,19 @@ import InputText from '../elements/inputText';
     ]
 
 
-        //////////////////////////////////formulario Dos Final
+      //////////////////////////////////formulario Dos Final
 
       //////////////////////////////////formulario tres     
 
       const agregarJson03 = () => {
         const RecuadroTresAgregar = {
-          RecuadroDos: {
+          RecuadroTres: {
             InspeccionCamion: camion,
             InspeccionContendedor: inspeccionContendedor,
             ObservacionesR3:observacionesR3,
           },
         };
-    
+        AñadirAjson(3,RecuadroTresAgregar)
         console.log(RecuadroTresAgregar)
       };
         
@@ -187,7 +224,7 @@ import InputText from '../elements/inputText';
     const [inspeccionContendedor, setInspeccionContendedor] = React.useState("");
     const [observacionesR3, setObservacionesR3] = React.useState('');
 
-    const elem1=['Observaciones'];
+
     const inspCamion = [
       {key:'1', value:'Olores', },
       {key:'2', value:'Residuos'},
@@ -209,7 +246,77 @@ import InputText from '../elements/inputText';
       {key:'11', value:'T°'}
     ]
 
+///////////////fin formulario 3
 
+///////////////////formulario 4
+
+    const agregarJson04 = () => {
+      const RecuadroCuatroAgregar = {
+        RecuadroCuatro: {
+          dataLimpieza: dataLimpieza,
+          pallets: pallets,
+          fumigacionMaterial:fumigacionMaterial,
+          estadoEnvases: estadoEnvases,
+          cheks: cheks,
+          observacionesR4:observacionesR4,
+          cargaAsociadaGD: cargaAsociadaGD,
+          observacionesOSAP: observacionesOSAP,
+          muestraInteriorContenedor:muestraInteriorContenedor,
+          despachoEnPallet: despachoEnPallet,
+          selladoDeNaviera: selladoDeNaviera,
+          estadoDelTiempo:estadoDelTiempo,
+          
+        },
+      };
+        AñadirAjson(4,RecuadroCuatroAgregar)
+        console.log(RecuadroCuatroAgregar)
+    };
+
+    const [dataLimpieza, setDataLimpieza] = React.useState([]);
+    const [pallets, setPallets] = React.useState([]);
+    const [fumigacionMaterial, setFumigacionMaterial] = React.useState([]);
+    const [estadoEnvases, setEstadoEnvases] = React.useState([]);
+    const [cheks,setChecks] = React.useState([]);
+
+    const [observacionesR4,setObservacionesR4] = React.useState('')
+    const [cargaAsociadaGD,setCargaAsociadaGD] = React.useState('')
+    const [observacionesOSAP,setObservacionesOSAP] = React.useState('')
+    const [muestraInteriorContenedor,setMuestraInteriorContenedor] = React.useState('')
+    const [despachoEnPallet,setDespachoEnPallet] = React.useState('')
+    const [selladoDeNaviera,setSelladoDeNaviera] = React.useState('')
+    const [estadoDelTiempo,setEstadoDelTiempo] = React.useState('')
+
+    const Limpieza = [
+      {key:'1', value:'Tapas', },
+      {key:'2', value:'Envases'},
+      {key:'3', value:'Pallets'},
+      ]
+
+    const FumigacionMaterial = [
+      {key:'1', value:'Maderas'},
+      {key:'2', value:'Zunchos'},
+      {key:'3',value:'Pallets'}
+      ]
+
+    const EstadoEnvases = [
+      {key:'1',value:'Abolladura Si'},
+      {key:'2',value:'Abolladura No'},
+      {key:'3',value:'Nr. Envases'}
+      ]
+
+    const Pallets = [
+      {key:'1', value:'Rotura si'},
+      {key:'2', value:'Rotura no'},
+      {key:'3', value:'Cambio'},
+      ]
+
+    const Checks = [
+      {key:'1', value:'Totes con sellos descriptivos entodo los zunchos'},
+      {key:'2', value:'Verificacion de perdidas de jugo internas'},
+      {key:'3', value:'Revision sellos conforme registros envadasado (jugos)'},
+      {key:'4', value:'Instalacion sellos conforme - pastas y pulpas'},
+      {key:'5', value:'Cambio de sellos'},
+      ]
 
   return (
     <ScrollView> 
@@ -411,10 +518,10 @@ import InputText from '../elements/inputText';
                   </View>
  
                   <View>
-                    <Button  title="Guardar Primer recuadro" onPress={agregarJson01} />
+                    <Button  title="Guardar Primer recuadro" onPress={() => agregarJson01()} />
                   </View>
                  
-              </View>
+              </View> 
 
 
 {/* -----------------------------Formulario 1 fin----------------------------------------- */}
@@ -594,7 +701,7 @@ import InputText from '../elements/inputText';
 
 
         <View style={styles.body}>
-            <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Observaciones'}</Text>
+            <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Observaciones Respecto a Camion'}</Text>
             <TextInput
               style={styles.input}
               onChangeText={setObservacionesR3}
@@ -614,20 +721,195 @@ import InputText from '../elements/inputText';
 {/* -----------------------------Formulario 3 fin----------------------------------------- */}
 {/* -----------------------------Formulario 3 fin----------------------------------------- */}
 
-
-{/* 
-
-            <View >
-              <Cuatro></Cuatro>
-            </View>
-         */}
+{/* -----------------------------Formulario 4----------------------------------------- */}
+{/* -----------------------------Formulario 4----------------------------------------- */}
+{/* -----------------------------Formulario 4----------------------------------------- */}
+{/* -----------------------------Formulario 4----------------------------------------- */}
 
 
+<View style= {styles.firstContainer}>
+
+        <View style = {styles.containerDrop}> 
+            <Text style = {styles.titulo}>
+              Limpieza Envases
+            </Text>
+            <MultipleSelectList 
+            setSelected={(e) => setDataLimpieza(e)} 
+            boxStyles={styles.box}
+            dropdownStyles={styles.box}
+            data={Limpieza} 
+            save="value"
+            label="Limpieza_Envases"
+            />
+          </View> 
+          <View style = {styles.containerDrop}> 
+            <Text style = {styles.titulo}>
+              Pallets
+            </Text>
+            <MultipleSelectList 
+            setSelected={(e) => setPallets(e)} 
+            boxStyles={styles.box}
+            dropdownStyles={styles.box}
+            data={Pallets} 
+            save="value"
+            label="Pallets"
+            />
+          </View>
+          <View style = {styles.containerDrop}> 
+            <Text style = {styles.titulo}>
+              Estado Envases
+            </Text>
+            <MultipleSelectList 
+            setSelected={(e) => setEstadoEnvases(e)} 
+            boxStyles={styles.box}
+            dropdownStyles={styles.box}
+            data={EstadoEnvases} 
+            save="value"
+            label="Estado Envases"
+            />
+
+          </View>
+          <View style = {styles.containerDrop}> 
+            <Text style = {styles.titulo}>
+              Fumigación Material
+            </Text>
+            <MultipleSelectList 
+            setSelected={(e) => setFumigacionMaterial(e)} 
+            boxStyles={styles.box}
+            dropdownStyles={styles.box}
+            data={FumigacionMaterial} 
+            save="value"
+            label="Fumigacion_Material"
+            />
+          </View>
+
+          <View style = {styles.containerDrop}> 
+            <Text style = {styles.titulo}>
+              Checks en base a pallets
+            </Text>
+            <MultipleSelectList 
+            setSelected={(e) => setChecks(e)} 
+            boxStyles={styles.box}
+            dropdownStyles={styles.box}
+            data={Checks} 
+            save="value"
+            label="Fumigacion_Material"
+            />
+          </View>
+
+
+{/* const places =[
+  {elem:'Observaciones', place:''},{elem:'Carga Asociada GD',place:'336883'},{elem:'Observaciones OSAP',place:'2111416702'},{elem:'Muestras en interior de Contenedor',place:'No'},{elem:'Despacho en Pallet',place:'Bajo y Sellos amarillos'},{elem:'Sellado de Naviera',place:''},{elem:'Estado del tiempo',place:'Nublado'},
+] */}
+
+
+        <View style={styles.body}>
+            <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Observaciones respecto a estado de envases'}</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setObservacionesR4}
+              value={observacionesR4}
+              placeholder={'Escribe aqui...'}
+              placeholderTextColor="#a9a9a9"
+            />
+        </View> 
+        
+        <View style={styles.body}>
+            <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Carga asociada GD'}</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setCargaAsociadaGD}
+              value={cargaAsociadaGD}
+              placeholder={'Escribe aqui...'}
+              placeholderTextColor="#a9a9a9"
+            />
+        </View> 
+
+        <View style={styles.body}>
+            <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Observaciones OSAP'}</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setObservacionesOSAP}
+              value={observacionesOSAP}
+              placeholder={'Escribe aqui...'}
+              placeholderTextColor="#a9a9a9"
+            />
+        </View> 
+
+        <View style={styles.body}>
+            <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Muestra al interior del contenedor'}</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setMuestraInteriorContenedor}
+              value={muestraInteriorContenedor}
+              placeholder={'Escribe aqui...'}
+              placeholderTextColor="#a9a9a9"
+            />
+        </View> 
+
+        <View style={styles.body}>
+            <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Despacho en pallet'}</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setDespachoEnPallet}
+              value={despachoEnPallet}
+              placeholder={'Escribe aqui...'}
+              placeholderTextColor="#a9a9a9"
+            />
+        </View> 
+
+        <View style={styles.body}>
+            <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Sellado de naviera'}</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setSelladoDeNaviera}
+              value={selladoDeNaviera}
+              placeholder={'Escribe aqui...'}
+              placeholderTextColor="#a9a9a9"
+            />
+        </View> 
+
+
+        <View style={styles.body}>
+            <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Estado del tiempo'}</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={setEstadoDelTiempo}
+              value={estadoDelTiempo}
+              placeholder={'Escribe aqui...'}
+              placeholderTextColor="#a9a9a9"
+            />
+        </View> 
 
         <View>
-            <Button  title="Guardar" onPress={agregarJson01} />
+          <Button  title="Guardar Cuarto recuadro" onPress={agregarJson04} />
+        </View>
+      </View>
+
+
+{/* -----------------------------Formulario 4 fin----------------------------------------- */}
+{/* -----------------------------Formulario 4 fin----------------------------------------- */}
+{/* -----------------------------Formulario 4 fin----------------------------------------- */}
+{/* -----------------------------Formulario 4 fin----------------------------------------- */}
+
+        <View>
+            <Button  title="Guardar y salir" onPress={() => ModalOpcionesCargaVisilidad(500,true)} />
         </View>         
       </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={ModalOpcionesValorCarga}
+        onRequestClose={ModalOpcionesCargaVisilidad}
+      >
+        <View style={styles.modalContainer}>
+        <ActivityIndicator size="large" color="#00ff00" />
+          <Text style = {{color:'white'}}>Guardando...</Text>
+        </View>
+      </Modal>
+
+      
     </ScrollView> 
   )}
 
@@ -650,14 +932,9 @@ export default REBRP61COMP;
         width:'97%',
         margin:"1.5%"
     },
-    
-
-
     box:{
         backgroundColor:'white',
         width: '95%',
-
-
     },
     titulo: {
       fontWeight: 'bold', 
@@ -703,5 +980,11 @@ export default REBRP61COMP;
   
       body:{
         flexDirection: 'column',
-      }
+      },
+      modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+      },
   });
