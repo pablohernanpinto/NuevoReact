@@ -3,6 +3,7 @@ import { ActivityIndicator, Button, Modal, ScrollView, StyleSheet, Text, TextInp
 import { MultipleSelectList, SelectList } from 'react-native-dropdown-select-list';
 import RNFS from 'react-native-fs';
 import { useNavigation } from '@react-navigation/native';
+import Swiper from 'react-native-swiper';
 
 
 const REBRP61COMP = ({route}) =>{
@@ -11,9 +12,7 @@ const REBRP61COMP = ({route}) =>{
   const [ModalOpcionesValorCarga, setModalOpcionesCarga] = useState(false);
 
   
-  useEffect(() => { 
-    
-  }, []);
+
  
  
   const AñadirAjson = async (formulario: number, editedData: any) => {
@@ -110,6 +109,7 @@ const REBRP61COMP = ({route}) =>{
     ]
 
     const [mostrarInputOtro, setMostrarInputOtro] = React.useState(false);
+    const [mostrarInputOtroCapGals, setMostrarInputOtroCapGals] = React.useState(false);
     const [Envio, setEnvio] = React.useState("");
     const TipoDeEnvio = [
         {key:'1', value:'Retiro Planta', },
@@ -319,6 +319,8 @@ const REBRP61COMP = ({route}) =>{
       ]
 
   return (
+    <Swiper showsButtons={false}>
+
     <ScrollView> 
       <View style = {styles.fondo}>
         <View style= {styles.firstContainer}>
@@ -328,6 +330,8 @@ const REBRP61COMP = ({route}) =>{
                     <SelectList 
                       boxStyles={styles.box}
                       dropdownStyles={styles.box}
+                      dropdownTextStyles= {{color:'black'}}
+                      inputStyles = {{color:'black'}}
                       setSelected={(val) => {setEnvio(val);
                         if(val === 'Otro') {
                           setMostrarInputOtro(true);
@@ -342,6 +346,7 @@ const REBRP61COMP = ({route}) =>{
 
                   
                   {mostrarInputOtro && (<TextInput
+                  
                       style={styles.inputOtros}
                       onChangeText={setEnvio}
                       value={Envio}
@@ -355,6 +360,8 @@ const REBRP61COMP = ({route}) =>{
 
                   <Text style = {styles.titulo}>Producto</Text>
                   <SelectList 
+                    dropdownTextStyles= {{color:'black'}}
+                    inputStyles = {{color:'black'}}
                     boxStyles={styles.box}
                     dropdownStyles={styles.box}
                     setSelected={(val) => {setProducto(val);
@@ -384,7 +391,8 @@ const REBRP61COMP = ({route}) =>{
 
                   <View style={styles.body}>
                       <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Lote Nr.'}</Text>
-                      <TextInput
+                      <TextInput 
+                        keyboardType="numeric"
                         style={styles.input}
                         onChangeText={setLoteNr}
                         value={loteNr}
@@ -396,6 +404,7 @@ const REBRP61COMP = ({route}) =>{
                   <View style={styles.body}>
                       <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Nr. de Envases'}</Text>
                       <TextInput
+                        keyboardType="numeric"
                         style={styles.input}
                         onChangeText={setNrEnvases}
                         value={nrEnvases}
@@ -407,6 +416,7 @@ const REBRP61COMP = ({route}) =>{
                   <View style={styles.body}>
                       <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Patente Camión'}</Text>
                       <TextInput
+                        
                         style={styles.input}
                         onChangeText={setPatenteCamion}
                         value={patenteCamion}
@@ -429,6 +439,7 @@ const REBRP61COMP = ({route}) =>{
                   <View style={styles.body}>
                       <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Peso Neto'}</Text>
                       <TextInput
+                        keyboardType="numeric"
                         style={styles.input}
                         onChangeText={setPesoNeto}
                         value={pesoNeto}
@@ -440,6 +451,7 @@ const REBRP61COMP = ({route}) =>{
                   <View style={styles.body}>
                       <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Peso Bruto'}</Text>
                       <TextInput
+                        keyboardType="numeric"
                         style={styles.input}
                         onChangeText={setPesoBruto}
                         value={pesoBruto}
@@ -451,6 +463,7 @@ const REBRP61COMP = ({route}) =>{
                   <View style={styles.body}>
                       <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Tara'}</Text>
                       <TextInput
+                        keyboardType="numeric"
                         style={styles.input}
                         onChangeText={setTara}
                         value={tara}
@@ -462,7 +475,9 @@ const REBRP61COMP = ({route}) =>{
                   <View style = {[styles.containerDrop, {paddingBottom:'1%'}]}>
 
                   <Text style = {styles.titulo}>Tipo de envase</Text>
-                  <SelectList 
+                  <SelectList
+                    dropdownTextStyles= {{color:'black'}}
+                    inputStyles = {{color:'black'}} 
                     boxStyles={styles.box}
                     dropdownStyles={styles.box}
                     setSelected={(val) => setTipoDeEnvase(val)}        
@@ -475,15 +490,20 @@ const REBRP61COMP = ({route}) =>{
                     <Text style = {styles.titulo}>
                       Capacidad en gals
                     </Text>
-                    <SelectList 
+                      <SelectList
+                      dropdownTextStyles= {{color:'black'}}
+                      inputStyles = {{color:'black'}} 
+ 
                       boxStyles={styles.box}
                       dropdownStyles={styles.box}
+                      dropdownTextStyles= {{color:'black'}}
+                      inputStyles = {{color:'black'}}
                       setSelected={(val) => {setCapacidadEnGals(val);
                         if(val === 'Otro') {
-                          setMostrarInputOtro(true);
+                          setMostrarInputOtroCapGals(true);
                         } 
                         else {
-                          setMostrarInputOtro(false);
+                          setMostrarInputOtroCapGals(false);
                         }
                         }} 
                       data={capGals} 
@@ -491,7 +511,8 @@ const REBRP61COMP = ({route}) =>{
                       />            
 
                     
-                    {mostrarInputOtro && (<TextInput
+                    {mostrarInputOtroCapGals && (<TextInput
+                        keyboardType="numeric"
                         style={styles.inputOtros}
                         onChangeText={setCapacidadEnGals}
                         value={capacidadEnGals}
@@ -509,6 +530,8 @@ const REBRP61COMP = ({route}) =>{
                     <MultipleSelectList 
                       setSelected={(val) => setRevision(val)} 
                       boxStyles={styles.box}
+                      dropdownTextStyles= {{color:'black'}}
+                      inputStyles = {{color:'black'}} 
                       dropdownStyles={styles.box}
                       data={SelectMultilist} 
                       save="value"
@@ -522,7 +545,10 @@ const REBRP61COMP = ({route}) =>{
                   </View>
                  
               </View> 
-
+              
+      </View>
+      <View style = {{paddingTop:'10%'}}></View>
+    </ScrollView> 
 
 {/* -----------------------------Formulario 1 fin----------------------------------------- */}
 {/* -----------------------------Formulario 1 fin----------------------------------------- */}
@@ -533,6 +559,9 @@ const REBRP61COMP = ({route}) =>{
 {/* -----------------------------Formulario 2----------------------------------------- */}
 {/* -----------------------------Formulario 2----------------------------------------- */}
 {/* -----------------------------Formulario 2----------------------------------------- */}
+
+  <ScrollView> 
+      <View style = {styles.fondo}>
 
       <View style= {styles.firstContainer}>
           <View>
@@ -550,9 +579,13 @@ const REBRP61COMP = ({route}) =>{
             </Text>
       
             <MultipleSelectList 
+            
             setSelected={(val) => setMarcaEnLosEnvases(val)} 
             boxStyles={styles.box}
             dropdownStyles={styles.box}
+            dropdownTextStyles= {{color:'black'}}
+            inputStyles = {{color:'black'}} 
+ 
             data={RevisionList} 
             save="value"
             label="Categories"
@@ -565,6 +598,9 @@ const REBRP61COMP = ({route}) =>{
             </Text>
       
             <MultipleSelectList 
+            dropdownTextStyles= {{color:'black'}}
+            inputStyles = {{color:'black'}} 
+
             setSelected={(val) => setRequerimientosDeCliente(val)} 
             boxStyles={styles.box}
             dropdownStyles={styles.box}
@@ -605,6 +641,7 @@ const REBRP61COMP = ({route}) =>{
           <View style={styles.body}>
             <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Envase Nr.'}</Text>
             <TextInput
+            keyboardType="numeric"
               style={styles.input}
               onChangeText={setEnvaseNr}
               value={envaseNr}
@@ -616,6 +653,7 @@ const REBRP61COMP = ({route}) =>{
           <View style={styles.body}>
             <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Dia Producc'}</Text>
             <TextInput
+            keyboardType="numeric"
               style={styles.input}
               onChangeText={setDiaProducc}
               value={cliente}
@@ -627,6 +665,7 @@ const REBRP61COMP = ({route}) =>{
           <View style={styles.body}>
             <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Container Nr.'}</Text>
             <TextInput
+            keyboardType="numeric"
               style={styles.input}
               onChangeText={setContainerNr}
               value={containerNr}
@@ -643,6 +682,9 @@ const REBRP61COMP = ({route}) =>{
 
           <View style = {styles.containerDrop}>           
           <MultipleSelectList 
+          dropdownTextStyles= {{color:'black'}}
+          inputStyles = {{color:'black'}} 
+
           setSelected={(val) => setOpciones(val)} 
           boxStyles={styles.box}
           dropdownStyles={styles.box}
@@ -656,6 +698,12 @@ const REBRP61COMP = ({route}) =>{
           </View>
 
       </View>
+        
+      </View>
+      <View style = {{paddingTop:'10%'}}></View>
+    </ScrollView> 
+
+      
 
 {/* -----------------------------Formulario 2 fin----------------------------------------- */}
 {/* -----------------------------Formulario 2 fin----------------------------------------- */}
@@ -666,8 +714,9 @@ const REBRP61COMP = ({route}) =>{
 {/* -----------------------------Formulario 3----------------------------------------- */}
 {/* -----------------------------Formulario 3----------------------------------------- */}
 {/* -----------------------------Formulario 3----------------------------------------- */}
-
-<View style= {styles.firstContainer}>
+<ScrollView> 
+  <View style = {styles.fondo}>
+    <View style= {styles.firstContainer}>
         <View>
           <Text style = {[styles.titulo,{fontSize:17}]}>Llenar solo en el Embarque ( Durante el mismo)</Text>
         </View>
@@ -676,6 +725,9 @@ const REBRP61COMP = ({route}) =>{
               Inspección Camión
             </Text>
             <MultipleSelectList 
+            dropdownTextStyles= {{color:'black'}}
+            inputStyles = {{color:'black'}} 
+
             setSelected={(e) => setCamion(e)} 
             boxStyles={styles.box}
             dropdownStyles={styles.box}
@@ -690,6 +742,9 @@ const REBRP61COMP = ({route}) =>{
               Inspección Contenedor
             </Text>
             <MultipleSelectList 
+            dropdownTextStyles= {{color:'black'}}
+            inputStyles = {{color:'black'}} 
+
             setSelected={(e) => setInspeccionContendedor(e)} 
             boxStyles={styles.box}
             dropdownStyles={styles.box}
@@ -715,6 +770,8 @@ const REBRP61COMP = ({route}) =>{
           <Button  title="Guardar Tercer recuadro" onPress={agregarJson03} />
         </View>
       </View>
+    </View>
+  </ScrollView>
 
 {/* -----------------------------Formulario 3 fin----------------------------------------- */}
 {/* -----------------------------Formulario 3 fin----------------------------------------- */}
@@ -725,15 +782,21 @@ const REBRP61COMP = ({route}) =>{
 {/* -----------------------------Formulario 4----------------------------------------- */}
 {/* -----------------------------Formulario 4----------------------------------------- */}
 {/* -----------------------------Formulario 4----------------------------------------- */}
+  <ScrollView> 
+      <View style = {styles.fondo}>
 
 
+            
 <View style= {styles.firstContainer}>
 
         <View style = {styles.containerDrop}> 
             <Text style = {styles.titulo}>
               Limpieza Envases
             </Text>
-            <MultipleSelectList 
+            <MultipleSelectList
+            dropdownTextStyles= {{color:'black'}}
+            inputStyles = {{color:'black'}} 
+
             setSelected={(e) => setDataLimpieza(e)} 
             boxStyles={styles.box}
             dropdownStyles={styles.box}
@@ -746,7 +809,10 @@ const REBRP61COMP = ({route}) =>{
             <Text style = {styles.titulo}>
               Pallets
             </Text>
-            <MultipleSelectList 
+            <MultipleSelectList
+            dropdownTextStyles= {{color:'black'}}
+            inputStyles = {{color:'black'}} 
+
             setSelected={(e) => setPallets(e)} 
             boxStyles={styles.box}
             dropdownStyles={styles.box}
@@ -760,6 +826,9 @@ const REBRP61COMP = ({route}) =>{
               Estado Envases
             </Text>
             <MultipleSelectList 
+            dropdownTextStyles= {{color:'black'}}
+            inputStyles = {{color:'black'}} 
+
             setSelected={(e) => setEstadoEnvases(e)} 
             boxStyles={styles.box}
             dropdownStyles={styles.box}
@@ -773,7 +842,10 @@ const REBRP61COMP = ({route}) =>{
             <Text style = {styles.titulo}>
               Fumigación Material
             </Text>
-            <MultipleSelectList 
+            <MultipleSelectList
+            dropdownTextStyles= {{color:'black'}}
+            inputStyles = {{color:'black'}} 
+
             setSelected={(e) => setFumigacionMaterial(e)} 
             boxStyles={styles.box}
             dropdownStyles={styles.box}
@@ -788,6 +860,9 @@ const REBRP61COMP = ({route}) =>{
               Checks en base a pallets
             </Text>
             <MultipleSelectList 
+            dropdownTextStyles= {{color:'black'}}
+            inputStyles = {{color:'black'}} 
+
             setSelected={(e) => setChecks(e)} 
             boxStyles={styles.box}
             dropdownStyles={styles.box}
@@ -796,12 +871,6 @@ const REBRP61COMP = ({route}) =>{
             label="Fumigacion_Material"
             />
           </View>
-
-
-{/* const places =[
-  {elem:'Observaciones', place:''},{elem:'Carga Asociada GD',place:'336883'},{elem:'Observaciones OSAP',place:'2111416702'},{elem:'Muestras en interior de Contenedor',place:'No'},{elem:'Despacho en Pallet',place:'Bajo y Sellos amarillos'},{elem:'Sellado de Naviera',place:''},{elem:'Estado del tiempo',place:'Nublado'},
-] */}
-
 
         <View style={styles.body}>
             <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Observaciones respecto a estado de envases'}</Text>
@@ -817,6 +886,7 @@ const REBRP61COMP = ({route}) =>{
         <View style={styles.body}>
             <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Carga asociada GD'}</Text>
             <TextInput
+            keyboardType="numeric"
               style={styles.input}
               onChangeText={setCargaAsociadaGD}
               value={cargaAsociadaGD}
@@ -828,6 +898,7 @@ const REBRP61COMP = ({route}) =>{
         <View style={styles.body}>
             <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Observaciones OSAP'}</Text>
             <TextInput
+            keyboardType="numeric"
               style={styles.input}
               onChangeText={setObservacionesOSAP}
               value={observacionesOSAP}
@@ -886,16 +957,9 @@ const REBRP61COMP = ({route}) =>{
         </View>
       </View>
 
-
-{/* -----------------------------Formulario 4 fin----------------------------------------- */}
-{/* -----------------------------Formulario 4 fin----------------------------------------- */}
-{/* -----------------------------Formulario 4 fin----------------------------------------- */}
-{/* -----------------------------Formulario 4 fin----------------------------------------- */}
-
-        <View>
+{/*       <View>
             <Button  title="Guardar y salir" onPress={() => ModalOpcionesCargaVisilidad(500,true)} />
-        </View>         
-      </View>
+        </View>    */}      
 
       <Modal
         animationType="slide"
@@ -908,9 +972,17 @@ const REBRP61COMP = ({route}) =>{
           <Text style = {{color:'white'}}>Guardando...</Text>
         </View>
       </Modal>
+      </View>
+      <View style = {{paddingTop:'10%'}}></View>
+  </ScrollView>
+  
 
-      
-    </ScrollView> 
+{/* -----------------------------Formulario 4 fin----------------------------------------- */}
+{/* -----------------------------Formulario 4 fin----------------------------------------- */}
+{/* -----------------------------Formulario 4 fin----------------------------------------- */}
+{/* -----------------------------Formulario 4 fin----------------------------------------- */}
+    </Swiper>
+    
   )}
 
 
@@ -919,24 +991,30 @@ export default REBRP61COMP;
   const styles = StyleSheet.create({
     fondo:{
       backgroundColor:'#fcfdf8',
+      
     },
     Container: {
       flex:1,
+      color:'black',
     },
     containerDrop:{
       paddingLeft: 10,
+      color:'black',
     },
     
     firstContainer:{
+      color:'black',
         borderWidth:1,
         width:'97%',
         margin:"1.5%"
     },
     box:{
+      color:'black',
         backgroundColor:'white',
         width: '95%',
     },
     titulo: {
+      color:'black',
       fontWeight: 'bold', 
       fontSize: 17,
       paddingLeft:'1%',
@@ -945,6 +1023,7 @@ export default REBRP61COMP;
     },
 
     inputOtros: {
+      color:'black',
       width: "90%",
       height: 40,
       margin: 12,
@@ -955,12 +1034,14 @@ export default REBRP61COMP;
       borderColor:'red',
     },
     selectList:{
+      color:'black',
       backgroundColor:'white',
       width: '95%',
     },
 
 
     input: {
+      color:'black',
       width: "90%",
       height: 40,
       margin: 12,
@@ -970,6 +1051,7 @@ export default REBRP61COMP;
       borderRadius:10,
     },
       styText:{
+        color:'black',
         width: "90%",
         paddingRight:4,
         fontSize: 15,
@@ -979,9 +1061,11 @@ export default REBRP61COMP;
       },
   
       body:{
+        color:'black',
         flexDirection: 'column',
       },
       modalContainer: {
+        color:'black',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',

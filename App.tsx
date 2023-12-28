@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {ActivityIndicator, View, Text, StyleSheet, Button, Modal, TextInput, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import {ActivityIndicator, View, Text, StyleSheet, Button, Modal, TextInput, Image, ScrollView, Alert,useColorScheme, Appearance } from 'react-native';
 import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import XLSX from 'xlsx';
@@ -7,8 +7,19 @@ import { readFile } from "react-native-fs";
 
 export default function App({navigation}) {
 
-  
-
+  /* 
+function Navigation() {
+  const [theme, setTheme] = useState(Appearance.getColorScheme());
+  useEffect(() => {
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      setTheme(colorScheme);
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+ */
+  const [theme, setTheme] = useState(Appearance.getColorScheme());
 
 const [data, setData] = useState<{
   nombre: string;
@@ -70,7 +81,12 @@ const [data, setData] = useState<{
 
   useEffect(() => {
     loadJsonFiles();
-
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      setTheme(colorScheme);
+    });
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   const loadJsonFiles = async () => {
@@ -494,6 +510,7 @@ const styles = StyleSheet.create({
     margin: 2,
     borderWidth: 1,
     padding: 10,
+    color:'black',
   },
   fecha: {
     flexDirection: 'row'

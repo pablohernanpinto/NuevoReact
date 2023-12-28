@@ -19,6 +19,7 @@ export default function Cuatro(){
 const Limpieza = [{key:'1', value:'Tapas', },{key:'2', value:'Envases'},{key:'3', value:'Pallets'},]
 const Rotura = [{key:'1', value:'Maderas', },{key:'2', value:'Zunchos'},{key:'3',value:'Pallets'}]
 const EstadoE = [{key:'1',value:'Abolladura Si'},{key:'2',value:'Abolladura No'},{key:'3',value:'Nr. Envases'}]
+
 return(
       <View style= {styles.firstContainer}>
         <View>

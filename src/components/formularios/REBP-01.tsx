@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, Modal, StyleSheet, ScrollView,TouchableHighlight, Image, ActivityIndicator } from 'react-native'; // Asegúrate de tener ScrollView importado
-import { MultipleSelectList, SelectList } from 'react-native-dropdown-select-list';
+import { View, Text, TextInput, Button, Modal, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'; // Asegúrate de tener ScrollView importado
+import { MultipleSelectList } from 'react-native-dropdown-select-list';
 import { useNavigation } from '@react-navigation/native';
 import RNFS from 'react-native-fs';
 
@@ -129,7 +129,7 @@ export default function REBP01({route}) {
                       }}
                     />
                   ) : (
-                    <Text>{item[column]}</Text>
+                    <Text style = {{color:'black'}}>{item[column]}</Text>
                   )}
                 </View>
               ))}
@@ -204,9 +204,11 @@ export default function REBP01({route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
     margin: 10,
   },
   row: {
+    color:'black',
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
@@ -215,6 +217,7 @@ const styles = StyleSheet.create({
     
   },
   cell: {
+    color:'black',
     fontSize:15,
     fontWeight:'bold',
     flex: 1,
@@ -222,10 +225,11 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   input: {
+    color:'black',
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    paddingHorizontal: 5, // Ajusta el espaciado horizontal del TextInput
+    paddingHorizontal: 5,
   },
   botonAgregar:{
     display:'flex',
