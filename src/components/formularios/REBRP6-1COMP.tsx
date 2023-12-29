@@ -4,16 +4,22 @@ import { MultipleSelectList, SelectList } from 'react-native-dropdown-select-lis
 import RNFS from 'react-native-fs';
 import { useNavigation } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
+import PagerView from 'react-native-pager-view';
 
 
 const REBRP61COMP = ({route}) =>{
   const { objetoEncontrado } = route.params;
   const navigation = useNavigation();
   const [ModalOpcionesValorCarga, setModalOpcionesCarga] = useState(false);
-
   
+  const [currentPage, setCurrentPage] = useState(0);
 
- 
+  const handlePageChange = (event:any) => {
+    const { position } = event.nativeEvent;
+    setCurrentPage(position);
+  };
+
+
  
   const AñadirAjson = async (formulario: number, editedData: any) => {
     console.log(editedData, ' este es editedData ');
@@ -319,9 +325,9 @@ const REBRP61COMP = ({route}) =>{
       ]
 
   return (
-    <Swiper showsButtons={false}>
-
-    <ScrollView> 
+<PagerView style={styles.pagerView} initialPage={0} onPageSelected={handlePageChange}>
+  
+    <ScrollView key="1"> 
       <View style = {styles.fondo}>
         <View style= {styles.firstContainer}>
                   <View style = {styles.containerDrop}>           
@@ -549,18 +555,18 @@ const REBRP61COMP = ({route}) =>{
       </View>
       <View style = {{paddingTop:'10%'}}></View>
     </ScrollView> 
-
+ 
 {/* -----------------------------Formulario 1 fin----------------------------------------- */}
 {/* -----------------------------Formulario 1 fin----------------------------------------- */}
 {/* -----------------------------Formulario 1 fin----------------------------------------- */}
 {/* -----------------------------Formulario 1 fin----------------------------------------- */}
 
-
+ 
 {/* -----------------------------Formulario 2----------------------------------------- */}
 {/* -----------------------------Formulario 2----------------------------------------- */}
 {/* -----------------------------Formulario 2----------------------------------------- */}
 
-  <ScrollView> 
+  <ScrollView key="2"> 
       <View style = {styles.fondo}>
 
       <View style= {styles.firstContainer}>
@@ -590,6 +596,7 @@ const REBRP61COMP = ({route}) =>{
             save="value"
             label="Categories"
             />
+            <Text style = {{color:'black'}}>{marcaEnLosEnvases}</Text>
           </View> 
 
           <View style = {styles.containerDrop}> 
@@ -641,7 +648,7 @@ const REBRP61COMP = ({route}) =>{
           <View style={styles.body}>
             <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Envase Nr.'}</Text>
             <TextInput
-            keyboardType="numeric"
+              keyboardType="numeric"
               style={styles.input}
               onChangeText={setEnvaseNr}
               value={envaseNr}
@@ -714,7 +721,7 @@ const REBRP61COMP = ({route}) =>{
 {/* -----------------------------Formulario 3----------------------------------------- */}
 {/* -----------------------------Formulario 3----------------------------------------- */}
 {/* -----------------------------Formulario 3----------------------------------------- */}
-<ScrollView> 
+<ScrollView key="3"> 
   <View style = {styles.fondo}>
     <View style= {styles.firstContainer}>
         <View>
@@ -771,6 +778,7 @@ const REBRP61COMP = ({route}) =>{
         </View>
       </View>
     </View>
+    <View style = {{paddingTop:'10%'}}></View>
   </ScrollView>
 
 {/* -----------------------------Formulario 3 fin----------------------------------------- */}
@@ -782,7 +790,7 @@ const REBRP61COMP = ({route}) =>{
 {/* -----------------------------Formulario 4----------------------------------------- */}
 {/* -----------------------------Formulario 4----------------------------------------- */}
 {/* -----------------------------Formulario 4----------------------------------------- */}
-  <ScrollView> 
+  <ScrollView key="4"> 
       <View style = {styles.fondo}>
 
 
@@ -974,14 +982,18 @@ const REBRP61COMP = ({route}) =>{
       </Modal>
       </View>
       <View style = {{paddingTop:'10%'}}></View>
+      
   </ScrollView>
-  
+
 
 {/* -----------------------------Formulario 4 fin----------------------------------------- */}
 {/* -----------------------------Formulario 4 fin----------------------------------------- */}
 {/* -----------------------------Formulario 4 fin----------------------------------------- */}
 {/* -----------------------------Formulario 4 fin----------------------------------------- */}
-    </Swiper>
+ 
+</PagerView>
+  
+
     
   )}
 
@@ -992,6 +1004,9 @@ export default REBRP61COMP;
     fondo:{
       backgroundColor:'#fcfdf8',
       
+    },
+    pagerView: {
+      flex: 1,
     },
     Container: {
       flex:1,

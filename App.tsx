@@ -7,19 +7,7 @@ import { readFile } from "react-native-fs";
 
 export default function App({navigation}) {
 
-  /* 
-function Navigation() {
-  const [theme, setTheme] = useState(Appearance.getColorScheme());
-  useEffect(() => {
-    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-      setTheme(colorScheme);
-    });
-    return () => {
-      subscription.remove();
-    };
-  }, []);
- */
-  const [theme, setTheme] = useState(Appearance.getColorScheme());
+const [theme, setTheme] = useState(Appearance.getColorScheme());
 
 const [data, setData] = useState<{
   nombre: string;
@@ -236,14 +224,32 @@ const [data, setData] = useState<{
   };
 
   const deleteJsonFile = async (fileName: string) => {
-    const path = RNFS.DocumentDirectoryPath + `/${fileName}`;
+    Alert.alert(
+      'Alerta!',
+      '¿Desea borrar el formulario?',
+      [
+        { 
+          text: 'Eliminar',
+          onPress: async () => {
+            const path = RNFS.DocumentDirectoryPath + `/${fileName}`;
 
-    try {
-      await RNFS.unlink(path); 
-      loadJsonFiles();
-    } catch (error) {
-      console.error(`Error al eliminar el archivo ${fileName}:`, error);
-    }
+            try {
+              await RNFS.unlink(path); 
+              loadJsonFiles();
+            } catch (error) {
+              console.error(`Error al eliminar el archivo ${fileName}:`, error);
+            }
+
+          },
+        },
+        { 
+          text: 'Cancelar',
+        },
+        
+      ],
+      { cancelable: false }
+    );
+
   };
 
  

@@ -19,6 +19,8 @@ import com.reactnativedocumentpicker.RNDocumentPickerPackage;
 import com.alpha0010.fs.FileAccessPackage;
 // react-native-fs
 import com.rnfs.RNFSPackage;
+// react-native-pager-view
+import com.reactnativepagerview.PagerViewPackage;
 // react-native-permissions
 import com.zoontek.rnpermissions.RNPermissionsPackage;
 // react-native-safe-area-context
@@ -74,6 +76,7 @@ public class PackageList {
       new RNDocumentPickerPackage(),
       new FileAccessPackage(),
       new RNFSPackage(),
+      new PagerViewPackage(),
       new RNPermissionsPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage()
