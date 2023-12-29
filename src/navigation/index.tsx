@@ -7,6 +7,7 @@ import REBP01 from '../components/formularios/REBP-01';
 import REBRP61COMP from '../components/formularios/REBRP6-1COMP';
 import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
+import ExportPdf from '../components/formularios/GenerarPDF';
 
 
 
@@ -30,6 +31,7 @@ function Navigation() {
           <Stack.Screen name="Formularios" component={App} />
           <Stack.Screen name="REBP-01" component={REBP01} />
           <Stack.Screen name="REBP-06" component={REBRP61COMP} />
+          <Stack.Screen name="GenerarPDF" component={ExportPdf} />
         </Stack.Navigator>
       </NavigationContainer>
     );

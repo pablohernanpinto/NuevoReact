@@ -1,11 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, Modal, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'; // Asegúrate de tener ScrollView importado
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { View, Text, TextInput, Button, Modal, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'; // Asegúrate de tener ScrollView importado
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
 import { useNavigation } from '@react-navigation/native';
 import RNFS from 'react-native-fs';
 
 
 export default function REBP01({route}) {
+
+  const miFuncion = () => {
+    // Lógica de la función
+    console.log('Función ejecutada desde REBP01');
+  };
+
+  // Configurar el botón en la barra de navegación
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity style={styles.button} onPress={() =>imprimirInfo()}>
+        <Text style= {{color:'grey'}}>GUARDAR Y SALIR</Text>
+      </TouchableOpacity>
+      
+      ),
+    });
+  }, [navigation, miFuncion]);
+
 
   const [selected, setSelected] = React.useState([]);
   const [indexArrelgo,setIndexArreglo] = React.useState(Number)
@@ -73,7 +91,7 @@ export default function REBP01({route}) {
       await RNFS.writeFile(objetoEncontrado.path, updatedContent, 'utf8'); 
   
       // Vuelve a cargar los archivos JSONs
-      ModalOpcionesCargaVisilidad(2000)
+      ModalOpcionesCargaVisilidad(1000)
       
     } catch (error) {
       console.error(error);
@@ -119,6 +137,7 @@ export default function REBP01({route}) {
                 <View key={column} style={styles.cell}>
                   {column === 'Material' ? (
                     <TextInput
+                    
                       style={styles.input}
                       value={item[column]}
                       onChangeText={newValue => {
@@ -148,16 +167,14 @@ export default function REBP01({route}) {
           onPress={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
           disabled={currentPage === 1}
         />
-        <Text style={{ marginHorizontal: 10,fontWeight:'bold',fontSize:20 }}>{`Página ${currentPage}`}</Text>
+        <Text style={{color:'black', marginHorizontal: 10,fontWeight:'bold',fontSize:20 }}>{`Página ${currentPage}`}</Text>
         <Button
           title="Siguiente"
           onPress={() => setCurrentPage(prevPage => Math.min(prevPage + 1, Math.ceil(originalData.length / itemsPerPage)))}
           disabled={endIndex >= originalData.length}
         />
 
-        <View style={styles.botonAgregar}>
-          <Button  title="Guardar" onPress={imprimirInfo} />
-        </View>
+
 
       </View>
       
@@ -186,13 +203,15 @@ export default function REBP01({route}) {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
             <MultipleSelectList 
+                dropdownTextStyles= {{color:'black'}}
+                inputStyles = {{color:'black'}} 
                 setSelected={(val:any) => {setSelected(val)}} 
                 data={opcionesList} 
                 save="value"
                 label="Categories"
             />
             <Text></Text>
-            <Button title="Cerrar" onPress={AgregarCondicion} />
+            <Button title="Guardar" onPress={AgregarCondicion} />
           </View>
         </View>
       </Modal>
@@ -241,5 +260,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+  },
+  button: {
+    borderBlockColor:'grey',
+    borderWidth:0.5,
+    borderRadius:4,
+    alignItems: 'center',
+    padding: 7,
   },
 });

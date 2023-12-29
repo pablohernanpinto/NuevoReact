@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.intento2.app-mergeDebugResources-36:/values-am/values-am.xml",
+            "outputFile": "com.intento2.app-mergeDebugResources-37:/values-am/values-am.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Pablo\\.gradle\\caches\\transforms-3\\9623e378e4dfc57c47793d0ffd25ee05\\transformed\\core-1.8.0\\res\\values-am\\values-am.xml",

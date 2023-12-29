@@ -3,10 +3,13 @@ import {ActivityIndicator, View, Text, StyleSheet, Button, Modal, TextInput, Ima
 import RNFS from 'react-native-fs';
 import DocumentPicker from 'react-native-document-picker';
 import XLSX from 'xlsx';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import FileViewer from 'react-native-file-viewer';
+
 import { readFile } from "react-native-fs";
 
 export default function App({navigation}) {
-
+  const [pathPDF, setPathPDF] = React.useState();
 const [theme, setTheme] = useState(Appearance.getColorScheme());
 
 const [data, setData] = useState<{
@@ -161,7 +164,7 @@ const [data, setData] = useState<{
         // Llama a loadJsonFiles después de agregarJson
         loadJsonFiles();
   
-        ModalOpcionesCargaVisilidad(3000);
+        ModalOpcionesCargaVisilidad(2000);
       } else {
         console.log("Selección de archivo cancelada");
       }
@@ -260,12 +263,13 @@ const [data, setData] = useState<{
         
         <Text style = {styles.texto}>{`Fecha: ${fecha}`}</Text> 
         <Text></Text> 
-        <Button title="Ingresar"  onPress={() => ModalOpciones(nombre, fecha, index,path,dataExcel)} />
+        <Button title="Formularios"  onPress={() => ModalOpciones(nombre, fecha, index,path,dataExcel)} />
+        <View style = {{paddingTop:5}}></View>
+        <Button title="Generar PDF" onPress={() => prueba(index)} /> 
         <View style = {{paddingTop:5}}></View>
         <Button color={'red'} title="Eliminar" onPress={() => deleteJsonFile(nombre)}/>
         {/* <Button color={'red'} title="imprimir" onPress={() => imprimir()}/>  */}
-        <View style = {{paddingTop:5}}></View>
-        <Button title="Imprimir Data" onPress={() => prueba(index)} /> 
+
 
       </View> 
     );  
@@ -298,7 +302,7 @@ const [data, setData] = useState<{
   const AbrirREBP06 = (index: any) => {
     const objetoEncontrado = data.find(item => item.index === index);
 /*     console.log((objetoEncontrado?.rebp06 )== false) */
-    console.log(objetoEncontrado)
+/*     console.log(objetoEncontrado) */
     if(objetoEncontrado?.rebp06 === false){
       navigation.navigate('REBP-06',{objetoEncontrado});
     }
@@ -322,12 +326,61 @@ const [data, setData] = useState<{
     }
   }
 
+  
+  const generatePDF = async (updatedContentAfterWrite:any) => {
+    const htmlContent = 
+    '';
 
-  const prueba = async (index:any) => {
-    const objetoEncontrado = data.find(item => item.index === index);
-    const updatedContentAfterWrite = await RNFS.readFile(objetoEncontrado!.path);
-    console.log('contenido actualizado:', updatedContentAfterWrite);
-  }
+    const nuevoFormato = updatedContentAfterWrite.fecha.replace(/\//g, '-');
+
+    const options = {
+      html: htmlContent,
+      fileName: String(nuevoFormato),
+      directory: 'Document',
+    };
+
+    try {
+      const pdf = await RNHTMLtoPDF.convert(options);
+      viewPDF(pdf);
+    } catch (error) {
+      console.error('Error al generar el PDF:', error);
+    }
+
+  };
+
+
+  const viewPDF = async (pdf:any) => {
+    try {
+      const pdfPath = pdf?.filePath;
+      const fileExists = await RNFS.exists(pdfPath);
+ 
+      if (fileExists) {
+        await FileViewer.open(pdfPath, { showOpenWithDialog: true, onDismiss: () => {} });
+      } else {
+        console.error('El archivo PDF no existe.');
+      }
+    } catch (error) {
+      console.error('Error al abrir el PDF:', error);
+    }
+  };
+  
+  const prueba = async (index: any) => {
+    try {
+      const objetoEncontrado = data.find(item => item.index === index);
+      const updatedContentAfterWrite = await RNFS.readFile(objetoEncontrado!.path);
+      const jsonData = JSON.parse(updatedContentAfterWrite);
+      
+      // Genera el PDF y espera a que se complete
+      await generatePDF(jsonData);
+      
+      // Visualiza el PDF después de que se haya generado
+
+    } catch (error) {
+      console.error('Error en la función prueba:', error);
+    }
+  };
+  
+  
 
 {/* ------------------------------------------------------------------------ */}
 {/* ------------------------------------------------------------------------ */}

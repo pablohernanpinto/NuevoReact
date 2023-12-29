@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.intento2.app-mergeDebugResources-36:/values-gu/values-gu.xml",
+            "outputFile": "com.intento2.app-mergeDebugResources-37:/values-gu/values-gu.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Pablo\\.gradle\\caches\\transforms-3\\dd33cdba76574cd6269c5bd29e434651\\transformed\\material-1.9.0\\res\\values-gu\\values-gu.xml",

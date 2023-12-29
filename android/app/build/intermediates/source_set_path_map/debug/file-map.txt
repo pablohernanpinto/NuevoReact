@@ -12,37 +12,43 @@ com.intento2.app-appcompat-1.5.0-10 C:\Users\Pablo\.gradle\caches\transforms-3\8
 com.intento2.app-jetified-drawee-2.6.0-11 C:\Users\Pablo\.gradle\caches\transforms-3\8ebb0988b078846cf36008451821bdf1\transformed\jetified-drawee-2.6.0\res
 com.intento2.app-core-1.8.0-12 C:\Users\Pablo\.gradle\caches\transforms-3\9623e378e4dfc57c47793d0ffd25ee05\transformed\core-1.8.0\res
 com.intento2.app-jetified-numberpickerview-v1.1.5-13 C:\Users\Pablo\.gradle\caches\transforms-3\97bc6e096de38b087bf3afbd209394ba\transformed\jetified-numberpickerview-v1.1.5\res
-com.intento2.app-jetified-lifecycle-viewmodel-savedstate-2.5.0-14 C:\Users\Pablo\.gradle\caches\transforms-3\a8d1d171f8bf29065aa4727aea3aed22\transformed\jetified-lifecycle-viewmodel-savedstate-2.5.0\res
-com.intento2.app-sqlite-framework-2.2.0-15 C:\Users\Pablo\.gradle\caches\transforms-3\aed854fb12aa7a4f325a5318b63d5aa8\transformed\sqlite-framework-2.2.0\res
-com.intento2.app-jetified-appcompat-resources-1.5.0-16 C:\Users\Pablo\.gradle\caches\transforms-3\aff50e2a9b3c13dbf5f6a2bb255f515d\transformed\jetified-appcompat-resources-1.5.0\res
-com.intento2.app-jetified-lifecycle-process-2.4.1-17 C:\Users\Pablo\.gradle\caches\transforms-3\b1c537e6049df5a2dcb1a9b20b1a8868\transformed\jetified-lifecycle-process-2.4.1\res
-com.intento2.app-jetified-autofill-1.1.0-18 C:\Users\Pablo\.gradle\caches\transforms-3\b2c399022120a5a16a836a433ff38c79\transformed\jetified-autofill-1.1.0\res
-com.intento2.app-lifecycle-livedata-core-2.5.0-19 C:\Users\Pablo\.gradle\caches\transforms-3\b5a8f4cf7a5a1a22c362c296ecffd88b\transformed\lifecycle-livedata-core-2.5.0\res
-com.intento2.app-transition-1.2.0-20 C:\Users\Pablo\.gradle\caches\transforms-3\bc4630f7968b1f3eb8f0d04812c2ae29\transformed\transition-1.2.0\res
-com.intento2.app-jetified-core-ktx-1.8.0-21 C:\Users\Pablo\.gradle\caches\transforms-3\c0b31b00541fbf5f57beeb3d5363f6b5\transformed\jetified-core-ktx-1.8.0\res
-com.intento2.app-cardview-1.0.0-22 C:\Users\Pablo\.gradle\caches\transforms-3\c785f2650a4ab9597610a42a5423b6e7\transformed\cardview-1.0.0\res
-com.intento2.app-jetified-startup-runtime-1.1.1-23 C:\Users\Pablo\.gradle\caches\transforms-3\ce16fe979dbb8e21943e6d6fc151e0f0\transformed\jetified-startup-runtime-1.1.1\res
-com.intento2.app-swiperefreshlayout-1.1.0-24 C:\Users\Pablo\.gradle\caches\transforms-3\d9be3a8e87333c5c5f406cc5515878e5\transformed\swiperefreshlayout-1.1.0\res
-com.intento2.app-constraintlayout-2.0.1-25 C:\Users\Pablo\.gradle\caches\transforms-3\da04db25643cb9506bb2398f6610984b\transformed\constraintlayout-2.0.1\res
-com.intento2.app-sqlite-2.2.0-26 C:\Users\Pablo\.gradle\caches\transforms-3\dc58477293179deb391b12c4cba55b48\transformed\sqlite-2.2.0\res
-com.intento2.app-material-1.9.0-27 C:\Users\Pablo\.gradle\caches\transforms-3\dd33cdba76574cd6269c5bd29e434651\transformed\material-1.9.0\res
-com.intento2.app-jetified-savedstate-1.2.0-28 C:\Users\Pablo\.gradle\caches\transforms-3\e081ace0c4a1086c044e0d15d89ff25d\transformed\jetified-savedstate-1.2.0\res
-com.intento2.app-jetified-flipper-0.182.0-29 C:\Users\Pablo\.gradle\caches\transforms-3\e13f88164840fe641a466d05cd8edac7\transformed\jetified-flipper-0.182.0\res
-com.intento2.app-jetified-emoji2-views-helper-1.2.0-30 C:\Users\Pablo\.gradle\caches\transforms-3\e476447430bdc86d50f956c4c4777a9c\transformed\jetified-emoji2-views-helper-1.2.0\res
-com.intento2.app-jetified-annotation-experimental-1.1.0-31 C:\Users\Pablo\.gradle\caches\transforms-3\ea88610a3c8be13450373fa73372379b\transformed\jetified-annotation-experimental-1.1.0\res
-com.intento2.app-drawerlayout-1.1.1-32 C:\Users\Pablo\.gradle\caches\transforms-3\f7136e33895596704e2928c39d7df1cb\transformed\drawerlayout-1.1.1\res
-com.intento2.app-pngs-33 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\generated\res\pngs\debug
-com.intento2.app-resValues-34 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\generated\res\resValues\debug
-com.intento2.app-rs-35 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\generated\res\rs\debug
-com.intento2.app-mergeDebugResources-36 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
-com.intento2.app-mergeDebugResources-37 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
-com.intento2.app-merged_res-38 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\intermediates\merged_res\debug
-com.intento2.app-debug-39 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\src\debug\res
-com.intento2.app-main-40 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\src\main\res
-com.intento2.app-packaged_res-41 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-date-picker\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-42 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-document-picker\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-43 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-file-access\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-44 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-fs\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-45 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-permissions\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-46 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
-com.intento2.app-packaged_res-47 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug
+com.intento2.app-jetified-AndroidPdfViewer-3.1.0-beta.3-14 C:\Users\Pablo\.gradle\caches\transforms-3\9f13f2975161d54e956596fdfa34eff4\transformed\jetified-AndroidPdfViewer-3.1.0-beta.3\res
+com.intento2.app-jetified-lifecycle-viewmodel-savedstate-2.5.0-15 C:\Users\Pablo\.gradle\caches\transforms-3\a8d1d171f8bf29065aa4727aea3aed22\transformed\jetified-lifecycle-viewmodel-savedstate-2.5.0\res
+com.intento2.app-sqlite-framework-2.2.0-16 C:\Users\Pablo\.gradle\caches\transforms-3\aed854fb12aa7a4f325a5318b63d5aa8\transformed\sqlite-framework-2.2.0\res
+com.intento2.app-jetified-appcompat-resources-1.5.0-17 C:\Users\Pablo\.gradle\caches\transforms-3\aff50e2a9b3c13dbf5f6a2bb255f515d\transformed\jetified-appcompat-resources-1.5.0\res
+com.intento2.app-jetified-lifecycle-process-2.4.1-18 C:\Users\Pablo\.gradle\caches\transforms-3\b1c537e6049df5a2dcb1a9b20b1a8868\transformed\jetified-lifecycle-process-2.4.1\res
+com.intento2.app-jetified-autofill-1.1.0-19 C:\Users\Pablo\.gradle\caches\transforms-3\b2c399022120a5a16a836a433ff38c79\transformed\jetified-autofill-1.1.0\res
+com.intento2.app-lifecycle-livedata-core-2.5.0-20 C:\Users\Pablo\.gradle\caches\transforms-3\b5a8f4cf7a5a1a22c362c296ecffd88b\transformed\lifecycle-livedata-core-2.5.0\res
+com.intento2.app-transition-1.2.0-21 C:\Users\Pablo\.gradle\caches\transforms-3\bc4630f7968b1f3eb8f0d04812c2ae29\transformed\transition-1.2.0\res
+com.intento2.app-jetified-core-ktx-1.8.0-22 C:\Users\Pablo\.gradle\caches\transforms-3\c0b31b00541fbf5f57beeb3d5363f6b5\transformed\jetified-core-ktx-1.8.0\res
+com.intento2.app-cardview-1.0.0-23 C:\Users\Pablo\.gradle\caches\transforms-3\c785f2650a4ab9597610a42a5423b6e7\transformed\cardview-1.0.0\res
+com.intento2.app-jetified-startup-runtime-1.1.1-24 C:\Users\Pablo\.gradle\caches\transforms-3\ce16fe979dbb8e21943e6d6fc151e0f0\transformed\jetified-startup-runtime-1.1.1\res
+com.intento2.app-swiperefreshlayout-1.1.0-25 C:\Users\Pablo\.gradle\caches\transforms-3\d9be3a8e87333c5c5f406cc5515878e5\transformed\swiperefreshlayout-1.1.0\res
+com.intento2.app-constraintlayout-2.0.1-26 C:\Users\Pablo\.gradle\caches\transforms-3\da04db25643cb9506bb2398f6610984b\transformed\constraintlayout-2.0.1\res
+com.intento2.app-sqlite-2.2.0-27 C:\Users\Pablo\.gradle\caches\transforms-3\dc58477293179deb391b12c4cba55b48\transformed\sqlite-2.2.0\res
+com.intento2.app-material-1.9.0-28 C:\Users\Pablo\.gradle\caches\transforms-3\dd33cdba76574cd6269c5bd29e434651\transformed\material-1.9.0\res
+com.intento2.app-jetified-savedstate-1.2.0-29 C:\Users\Pablo\.gradle\caches\transforms-3\e081ace0c4a1086c044e0d15d89ff25d\transformed\jetified-savedstate-1.2.0\res
+com.intento2.app-jetified-flipper-0.182.0-30 C:\Users\Pablo\.gradle\caches\transforms-3\e13f88164840fe641a466d05cd8edac7\transformed\jetified-flipper-0.182.0\res
+com.intento2.app-jetified-emoji2-views-helper-1.2.0-31 C:\Users\Pablo\.gradle\caches\transforms-3\e476447430bdc86d50f956c4c4777a9c\transformed\jetified-emoji2-views-helper-1.2.0\res
+com.intento2.app-jetified-annotation-experimental-1.1.0-32 C:\Users\Pablo\.gradle\caches\transforms-3\ea88610a3c8be13450373fa73372379b\transformed\jetified-annotation-experimental-1.1.0\res
+com.intento2.app-drawerlayout-1.1.1-33 C:\Users\Pablo\.gradle\caches\transforms-3\f7136e33895596704e2928c39d7df1cb\transformed\drawerlayout-1.1.1\res
+com.intento2.app-pngs-34 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\generated\res\pngs\debug
+com.intento2.app-resValues-35 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\generated\res\resValues\debug
+com.intento2.app-rs-36 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\generated\res\rs\debug
+com.intento2.app-mergeDebugResources-37 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.intento2.app-mergeDebugResources-38 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.intento2.app-merged_res-39 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\build\intermediates\merged_res\debug
+com.intento2.app-debug-40 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\src\debug\res
+com.intento2.app-main-41 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\android\app\src\main\res
+com.intento2.app-packaged_res-42 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-blob-util\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-43 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-date-picker\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-44 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-document-picker\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-45 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-file-access\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-46 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-file-viewer\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-47 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-fs\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-48 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-html-to-pdf\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-49 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-pager-view\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-50 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-pdf\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-51 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-permissions\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-52 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
+com.intento2.app-packaged_res-53 E:\ucm\semestre 10\modulo integrador\Proyecto\intento2 - copia\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug

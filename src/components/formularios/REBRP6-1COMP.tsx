@@ -553,7 +553,7 @@ const REBRP61COMP = ({route}) =>{
               </View> 
               
       </View>
-      <View style = {{paddingTop:'10%'}}></View>
+      <View style = {{paddingTop:'2%'}}></View>
     </ScrollView> 
  
 {/* -----------------------------Formulario 1 fin----------------------------------------- */}
@@ -660,10 +660,10 @@ const REBRP61COMP = ({route}) =>{
           <View style={styles.body}>
             <Text style={[styles.styText, { width: "90%", textAlign: 'left' }]}>{'Dia Producc'}</Text>
             <TextInput
-            keyboardType="numeric"
+              keyboardType="numeric"
               style={styles.input}
               onChangeText={setDiaProducc}
-              value={cliente}
+              value={diaProducc}
               placeholder={'Escribe aqui...'}
               placeholderTextColor="#a9a9a9"
             />
@@ -707,7 +707,7 @@ const REBRP61COMP = ({route}) =>{
       </View>
         
       </View>
-      <View style = {{paddingTop:'10%'}}></View>
+      <View style = {{paddingTop:'2%'}}></View>
     </ScrollView> 
 
       
@@ -778,7 +778,7 @@ const REBRP61COMP = ({route}) =>{
         </View>
       </View>
     </View>
-    <View style = {{paddingTop:'10%'}}></View>
+    <View style = {{paddingTop:'2%'}}></View>
   </ScrollView>
 
 {/* -----------------------------Formulario 3 fin----------------------------------------- */}
@@ -981,7 +981,7 @@ const REBRP61COMP = ({route}) =>{
         </View>
       </Modal>
       </View>
-      <View style = {{paddingTop:'10%'}}></View>
+      <View style = {{paddingTop:'2%'}}></View>
       
   </ScrollView>
 

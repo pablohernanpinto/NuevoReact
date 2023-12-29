@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.intento2.app-mergeDebugResources-36:/values-uk/values-uk.xml",
+            "outputFile": "com.intento2.app-mergeDebugResources-37:/values-uk/values-uk.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Pablo\\.gradle\\caches\\transforms-3\\8a4582fcf4777cd70591117a23078262\\transformed\\appcompat-1.5.0\\res\\values-uk\\values-uk.xml",

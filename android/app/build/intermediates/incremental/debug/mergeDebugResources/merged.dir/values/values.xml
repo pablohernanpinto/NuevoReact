@@ -1880,7 +1880,7 @@
     <string name="alert_description" translatable="false">Alert</string>
     <string name="ampm_description">Select AM/PM</string>
     <string name="androidx_startup" translatable="false">androidx.startup</string>
-    <string name="app_name">intento2</string>
+    <string name="app_name">Patagonia despachos</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="bottom_sheet_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
     <string description="A description of an accessibility action to collapse the bottom sheet [CHAR LIMIT=NONE]" name="bottomsheet_action_collapse">Collapse the bottom sheet</string>
@@ -11818,6 +11818,12 @@
     <declare-styleable name="ScrimInsetsFrameLayout">
     <attr format="color|reference" name="insetForeground"/>
   </declare-styleable>
+    <declare-styleable name="ScrollBar">
+        <attr format="color|reference" name="sb_handlerColor"/>
+        <attr format="color|reference" name="sb_indicatorColor"/>
+        <attr format="color|reference" name="sb_indicatorTextColor"/>
+        <attr format="boolean|reference" name="sb_horizontal"/>
+    </declare-styleable>
     <declare-styleable name="ScrollingViewBehavior_Layout">
     
     <attr format="dimension" name="behavior_overlapTop"/>

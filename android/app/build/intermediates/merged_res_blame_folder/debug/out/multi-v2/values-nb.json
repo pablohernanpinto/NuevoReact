@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.intento2.app-mergeDebugResources-36:/values-nb/values-nb.xml",
+            "outputFile": "com.intento2.app-mergeDebugResources-37:/values-nb/values-nb.xml",
             "map": [
                 {
                     "source": "E:\\ucm\\semestre 10\\modulo integrador\\Proyecto\\intento2 - copia\\node_modules\\react-native-date-picker\\android\\build\\intermediates\\packaged_res\\debug\\values-nb\\values-nb.xml",
