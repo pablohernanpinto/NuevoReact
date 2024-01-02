@@ -328,9 +328,200 @@ const [data, setData] = useState<{
 
   
   const generatePDF = async (updatedContentAfterWrite:any) => {
-    const htmlContent = 
-    '';
+    const htmlContent = `
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Invoice</title>
+        <link rel="license" href="https://www.opensource.org/licenses/mit-license/">
+        <style>
+        ${htmlStyles}
+    
+        </style>
+      </head>
+     <body>
 
+    <div class="recuadroInfo" >
+        <div >
+            <img style="padding-top: 50px" src="./assets/logo-patagoniafresh.png" alt="logo">
+        </div>
+        <div >
+            <h4>PLANTA</h4>
+            <h4>AREA</h4>
+            <h4 class="sinLinea">REGISTRO</h4>
+        </div>
+        <div>
+            <h4>MOLINACIUDAD</h4>
+            <h4>DESPACHOS</h4>
+            <h4 class="sinLinea">CHECK LIST EMBARQUES: INSPECCION DE CAMIONES, CONTENEDORES Y ENVASES</h4>
+        </div>
+    </div>
+
+    <br>
+    <table border="1" style="width:100%">
+      <tr>
+        <th>Tipo de retiro</th>
+        <th>Producto/s</th>
+        <th>Lote Nr</th>
+        <th>Nr de Envases</th>
+      </tr>
+      <tr>
+        <td>${updatedContentAfterWrite.rebp06R1.TipoDeEnvio}</td>
+        <td>${updatedContentAfterWrite.rebp06R1.Producto}</td>
+        <td>${updatedContentAfterWrite.rebp06R1.LoteNr}</td>
+        <td>${updatedContentAfterWrite.rebp06R1.NrdeEnvases}</td>
+      </tr>
+    </table>
+    <br>
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Patente Camión</th>
+          <th>Cliente</th>
+          <th>Peso neto</th>
+          <th>Peso bruto</th>
+      </tr>
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R1.PatenteCamion}</td>
+          <td>${updatedContentAfterWrite.rebp06R1.Cliente}</td>
+          <td>${updatedContentAfterWrite.rebp06R1.PesoNeto}</td>
+          <td>${updatedContentAfterWrite.rebp06R1.PesoBruto}</td>
+      </tr>
+    </table>
+    <br>
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Tara</th>
+          <th>Tipo de Envases</th>
+          <th>Capacidad en Gals</th>
+          <th>Revisiones</th>
+      </tr>
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R1.Tara}</td>
+          <td>${updatedContentAfterWrite.rebp06R1.TipodeEnvases}</td>
+          <td>${updatedContentAfterWrite.rebp06R1.CapacidadEnGals}</td>
+          <td>${updatedContentAfterWrite.rebp06R1.Revision ? updatedContentAfterWrite.rebp06R1.Revision.map((item:any) => item + '<br>').join('') : ''}</td>
+      </tr>
+    </table>
+    
+
+   
+
+    <h4>Llenar solo en el Embarque ( Durante el mismo)</h4>
+
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Marcas en los Envases</th>
+
+      </tr>
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R2.MarcaEnLosEnvases ? updatedContentAfterWrite.rebp06R2.MarcaEnLosEnvases.map((itemMarcaEnLosEnvases:any) => itemMarcaEnLosEnvases + '<br>').join('') : ''}</td>
+      </tr>
+    </table>
+
+    <h4>Termoregistrador</h4>
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Crop</th>
+          <th>Tipo de Envases</th>
+          <th>Capacidad en Gals</th>
+          <th>Dia Producc.</th>
+          <th>Container Nr.</th>
+      </tr>
+
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R2.crop}</td>
+          <td>${updatedContentAfterWrite.rebp06R2.loteNrR2}</td>
+          <td>${updatedContentAfterWrite.rebp06R2.envaseNr}</td>
+          <td>${updatedContentAfterWrite.rebp06R2.diaProducc}</td>
+          <td>${updatedContentAfterWrite.rebp06R2.containerNr}</td>
+      </tr>
+    </table>
+    <br>
+
+  <div style="display: flex; flex-direction: row;">
+    <div>
+      <table border="1" >
+        <tr>
+          <th>Crop</th>
+          <th>Tipo de Envases</th>
+        </tr>
+        <tr>
+          <td>${updatedContentAfterWrite.rebp06R2.crop}</td>
+          <td>${updatedContentAfterWrite.rebp06R2.loteNrR2}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="padding-left: 10px;">
+      <table border="1" style="style="padding-left: 10px;">
+        <tr>
+          <th>Crop</th>
+          <th>Tipo de Envases</th>
+        </tr>
+        <tr>
+          <td>${updatedContentAfterWrite.rebp06R2.crop}</td>
+          <td>${updatedContentAfterWrite.rebp06R2.loteNrR2}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+
+    <br>
+    <div class="recuadroInfo"  >
+        <div style="padding-left: 10px; padding-right: 10px;">
+            <h5>Inspección Camión: </h5>
+            <h5>Inspección Contenedor: </h5>
+            <h5>Observaciones:</h5>
+        </div>
+        
+    </div>
+
+    <br>
+    <div class="recuadroInfo"  >
+        <div style="padding-left: 10px; padding-right: 10px;">
+            <h5>Inspección Camión: </h5>
+            <h5>Inspección Contenedor: </h5>
+            <h5>Observaciones:</h5>
+        </div>
+        
+    </div>
+</body>
+
+<body>
+<div style="page-break-before: always;"></div>
+
+<table border="1" style="width:100%">
+  <tr>
+    <th>ID</th>
+    <th>Lote</th>
+    <th>Pallet</th>
+    <th>N# TB</th>
+    <th>Peso Neto</th>
+    <th>Sello</th>
+    <th>Sello Observaciones</th>
+  </tr>
+
+  ${updatedContentAfterWrite.dataExcel.map((item:any, index:any) => `
+    <tr>
+      <td>${item.ID}</td>
+      <td>${item.Fecha}</td>
+      <td>${item.Tipo}</td>
+      <td>${item.Numero}</td>
+      <td>${item.Valor}</td>
+      <td>${item.Material}</td>
+
+      <td>${item.Observaciones ? item.Observaciones.map((itemObservaciones:any) => itemObservaciones + '<br>').join('') : ''}</td>
+
+    </tr>
+  `).join('')}
+
+</table>
+</body>
+    </html>
+    `;
+    
     const nuevoFormato = updatedContentAfterWrite.fecha.replace(/\//g, '-');
 
     const options = {
@@ -341,6 +532,7 @@ const [data, setData] = useState<{
 
     try {
       const pdf = await RNHTMLtoPDF.convert(options);
+      console.log(updatedContentAfterWrite.rebp06R2)
       viewPDF(pdf);
     } catch (error) {
       console.error('Error al generar el PDF:', error);
@@ -365,11 +557,12 @@ const [data, setData] = useState<{
   };
   
   const prueba = async (index: any) => {
+
     try {
       const objetoEncontrado = data.find(item => item.index === index);
       const updatedContentAfterWrite = await RNFS.readFile(objetoEncontrado!.path);
       const jsonData = JSON.parse(updatedContentAfterWrite);
-      
+      console.log(jsonData)
       // Genera el PDF y espera a que se complete
       await generatePDF(jsonData);
       
@@ -591,3 +784,36 @@ const styles = StyleSheet.create({
   },
 
 });
+
+
+
+const htmlStyles = `
+.recuadroInfo {
+ 
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black; 
+}
+
+.recuadroInfo img {
+  width: 200px; 
+}
+
+.recuadroInfo div {
+  border-right: 2px solid black; 
+  display: flex;
+  flex-direction: column;
+}
+
+.recuadroInfo div:last-child {
+  border-right: none; 
+}
+
+.recuadroInfo div h4 {
+  margin-bottom: 5px;
+  border-bottom: 2px solid black;
+  
+}
+.recuadroInfo div .sinLinea {
+  border-bottom: none;
+}`;
