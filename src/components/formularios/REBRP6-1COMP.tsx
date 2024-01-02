@@ -22,7 +22,7 @@ const REBRP61COMP = ({route}) =>{
 
  
   const AñadirAjson = async (formulario: number, editedData: any) => {
-    console.log(editedData, ' este es editedData ');
+    //console.log(editedData, ' este es editedData ');
     try {
       // Lee el contenido actual del archivo JSON 
       const currentContent = await RNFS.readFile(objetoEncontrado.path);
@@ -223,7 +223,7 @@ const REBRP61COMP = ({route}) =>{
           },
         };
         AñadirAjson(3,RecuadroTresAgregar)
-        console.log(RecuadroTresAgregar)
+       // console.log(RecuadroTresAgregar)
       };
         
     const [camion, setCamion] = React.useState("");
@@ -275,7 +275,7 @@ const REBRP61COMP = ({route}) =>{
         },
       };
         AñadirAjson(4,RecuadroCuatroAgregar)
-        console.log(RecuadroCuatroAgregar)
+        //console.log(RecuadroCuatroAgregar)
     };
 
     const [dataLimpieza, setDataLimpieza] = React.useState([]);

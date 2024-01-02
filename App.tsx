@@ -12,6 +12,8 @@ export default function App({navigation}) {
   const [pathPDF, setPathPDF] = React.useState();
 const [theme, setTheme] = useState(Appearance.getColorScheme());
 
+const [urlImage,setUrlImage] = useState('./assets/logo-patagoniafresh.png')
+
 const [data, setData] = useState<{
   nombre: string;
   fecha: any;
@@ -207,14 +209,14 @@ const [data, setData] = useState<{
     const indexMasGrande = data.reduce((maxIndex, elemento) => {
       return elemento.index > maxIndex ? elemento.index : maxIndex;}, -1);
     try {
-      await createJsonFile(String(indexMasGrande+1), { fecha: Dia+'/'+Mes+'/'+Anio, index: Number(indexMasGrande)+1,excel: false, rebp06:false });
+      await createJsonFile(String(indexMasGrande+1), { fecha: Dia+'/'+Mes+'/'+Anio, index: Number(indexMasGrande)+1,excel: false, rebp06:false,rebp06R1:{},rebp06R2:{},rebp06R3:{},rebp06R4:{} });
     } catch (error) { 
-      await createJsonFile('0', { fecha: Dia+'/'+Mes+'/'+Anio, index: 0 , excel: false, rebp06:false });
+      await createJsonFile('0', { fecha: Dia+'/'+Mes+'/'+Anio, index: 0 , excel: false, rebp06:false, rebp06R1:{},rebp06R2:{},rebp06R3:{},rebp06R4:{} });
       //console.error('Error al crear el archivo JSON:', error);
     }
   }; 
 
-  const createJsonFile = async (fileName: string, content: {fecha:string,index:Number, excel: boolean, rebp06:boolean}) => {
+  const createJsonFile = async (fileName: string, content: {fecha:string,index:Number, excel: boolean, rebp06:boolean,rebp06R1:any,rebp06R2:any,rebp06R3:any,rebp06R4:any}) => {
     
     const path = RNFS.DocumentDirectoryPath + `/${fileName}.json`;
 
@@ -341,21 +343,26 @@ const [data, setData] = useState<{
       </head>
      <body>
 
-    <div class="recuadroInfo" >
-        <div >
-            <img style="padding-top: 50px" src="./assets/logo-patagoniafresh.png" alt="logo">
-        </div>
-        <div >
-            <h4>PLANTA</h4>
-            <h4>AREA</h4>
-            <h4 class="sinLinea">REGISTRO</h4>
-        </div>
-        <div>
-            <h4>MOLINACIUDAD</h4>
-            <h4>DESPACHOS</h4>
-            <h4 class="sinLinea">CHECK LIST EMBARQUES: INSPECCION DE CAMIONES, CONTENEDORES Y ENVASES</h4>
-        </div>
-    </div>
+     <h2>REBP-06</h2>
+     <img class="watermark" src="https://empresasiansa.cl/patagoniafresh/wp-content/uploads/sites/6/2020/03/logo-patagoniafresh.svg" alt="logo">
+
+    <table border="1" style="width:100%">
+      <tr>
+        <th>Planta</th>
+        <td>Área</td>
+        
+      </tr>
+      <tr>
+        <th>Ciudad</th>
+        <td>CHECK LIST EMBARQUES: INSPECCION DE CAMIONES, CONTENEDORES Y ENVASES</td>
+      </tr>
+      <tr>
+      <th>Fecha</th>
+      <td>${updatedContentAfterWrite.fecha}</td>
+    </tr>
+    </table>
+      
+
 
     <br>
     <table border="1" style="width:100%">
@@ -408,13 +415,13 @@ const [data, setData] = useState<{
 
     <h4>Llenar solo en el Embarque ( Durante el mismo)</h4>
 
-    <table border="1" style="width:100%">
+    <table border="1" style="width:100%; ">
       <tr>
           <th>Marcas en los Envases</th>
 
       </tr>
       <tr>
-          <td>${updatedContentAfterWrite.rebp06R2.MarcaEnLosEnvases ? updatedContentAfterWrite.rebp06R2.MarcaEnLosEnvases.map((itemMarcaEnLosEnvases:any) => itemMarcaEnLosEnvases + '<br>').join('') : ''}</td>
+          <td >${updatedContentAfterWrite.rebp06R2.MarcaEnLosEnvases ? updatedContentAfterWrite.rebp06R2.MarcaEnLosEnvases.map((itemMarcaEnLosEnvases:any) => itemMarcaEnLosEnvases + '<br>').join('') : ''}</td>
       </tr>
     </table>
 
@@ -436,89 +443,134 @@ const [data, setData] = useState<{
           <td>${updatedContentAfterWrite.rebp06R2.containerNr}</td>
       </tr>
     </table>
-    <br>
-
-  <div style="display: flex; flex-direction: row;">
-    <div>
-      <table border="1" >
-        <tr>
-          <th>Crop</th>
-          <th>Tipo de Envases</th>
-        </tr>
-        <tr>
-          <td>${updatedContentAfterWrite.rebp06R2.crop}</td>
-          <td>${updatedContentAfterWrite.rebp06R2.loteNrR2}</td>
-        </tr>
-      </table>
-    </div>
-
-    <div style="padding-left: 10px;">
-      <table border="1" style="style="padding-left: 10px;">
-        <tr>
-          <th>Crop</th>
-          <th>Tipo de Envases</th>
-        </tr>
-        <tr>
-          <td>${updatedContentAfterWrite.rebp06R2.crop}</td>
-          <td>${updatedContentAfterWrite.rebp06R2.loteNrR2}</td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-
 
     <br>
-    <div class="recuadroInfo"  >
-        <div style="padding-left: 10px; padding-right: 10px;">
-            <h5>Inspección Camión: </h5>
-            <h5>Inspección Contenedor: </h5>
-            <h5>Observaciones:</h5>
-        </div>
-        
-    </div>
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Contramuestras</th>
+          <th>Requerimientos de cliente</th>
+
+      </tr>
+
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R2.contramuestras ? updatedContentAfterWrite.rebp06R2.contramuestras.map((itemContramuestras:any) => itemContramuestras + '<br>').join('') : ''}</td>
+          <td>${updatedContentAfterWrite.rebp06R2.RequerimientosDeCliente ? updatedContentAfterWrite.rebp06R2.RequerimientosDeCliente.map((itemRequerimientosDeCliente:any) => itemRequerimientosDeCliente + '<br>').join('') : ''}</td>
+
+      </tr>
+    </table>
+    <div style="page-break-before: always;"></div>
+    <br>
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Inspeccion de camion</th>
+          <th>Inspeccion contendedor</th>
+
+      </tr>
+
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R3.InspeccionCamion ? updatedContentAfterWrite.rebp06R3.InspeccionCamion.map((itemInspeccionCamion:any) => itemInspeccionCamion + '<br>').join('') : ''}</td>
+          <td>${updatedContentAfterWrite.rebp06R3.InspeccionContendedor ? updatedContentAfterWrite.rebp06R3.InspeccionContendedor.map((itemInspeccionContendedor:any) => itemInspeccionContendedor + '<br>').join('') : ''}</td>
+
+      </tr>
+    </table>
+    <br>
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Observaciones</th>
+
+      </tr>
+
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R3.ObservacionesR3}</td>
+
+      </tr>
+    </table>
 
     <br>
-    <div class="recuadroInfo"  >
-        <div style="padding-left: 10px; padding-right: 10px;">
-            <h5>Inspección Camión: </h5>
-            <h5>Inspección Contenedor: </h5>
-            <h5>Observaciones:</h5>
-        </div>
-        
-    </div>
-</body>
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Inspeccion de camion</th>
+          <th>Inspeccion contendedor</th>
+          <th>Estado de envases</th>
+          <th>Fumigacion material</th>
+      </tr>
 
-<body>
-<div style="page-break-before: always;"></div>
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R4.dataLimpieza ? updatedContentAfterWrite.rebp06R4.dataLimpieza.map((itemDataLimpieza:any) => itemDataLimpieza + '<br>').join('') : ''}</td>
+          <td>${updatedContentAfterWrite.rebp06R4.pallets ? updatedContentAfterWrite.rebp06R4.pallets.map((itemPallets:any) => itemPallets + '<br>').join('') : ''}</td>
+          <td>${updatedContentAfterWrite.rebp06R4.estadoEnvases ? updatedContentAfterWrite.rebp06R4.estadoEnvases.map((itemEstadoEnvases:any) => itemEstadoEnvases + '<br>').join('') : ''}</td>
+          <td>${updatedContentAfterWrite.rebp06R4.fumigacionMaterial ? updatedContentAfterWrite.rebp06R4.fumigacionMaterial.map((itemFumigacionMaterial:any) => itemFumigacionMaterial + '<br>').join('') : ''}</td>
 
-<table border="1" style="width:100%">
-  <tr>
-    <th>ID</th>
-    <th>Lote</th>
-    <th>Pallet</th>
-    <th>N# TB</th>
-    <th>Peso Neto</th>
-    <th>Sello</th>
-    <th>Sello Observaciones</th>
-  </tr>
+      </tr>
+    </table>
+  
+    <br>
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Checks</th>
+          <th>Despacho en pallet</th>
+          <th>Estado del tiempo</th>
+          <th>Muestra al interior del contenedor</th>
+      </tr>
 
-  ${updatedContentAfterWrite.dataExcel.map((item:any, index:any) => `
-    <tr>
-      <td>${item.ID}</td>
-      <td>${item.Fecha}</td>
-      <td>${item.Tipo}</td>
-      <td>${item.Numero}</td>
-      <td>${item.Valor}</td>
-      <td>${item.Material}</td>
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R4.cheks ? updatedContentAfterWrite.rebp06R4.cheks.map((itemCheks:any) => itemCheks + '<br>').join('') : ''}</td>
+          <td>${updatedContentAfterWrite.rebp06R4.despachoEnPallet}</td>
+          <td>${updatedContentAfterWrite.rebp06R4.estadoDelTiempo}</td>
+          <td>${updatedContentAfterWrite.rebp06R4.muestraInteriorContenedor}</td>
 
-      <td>${item.Observaciones ? item.Observaciones.map((itemObservaciones:any) => itemObservaciones + '<br>').join('') : ''}</td>
+      </tr>
+    </table>
 
-    </tr>
-  `).join('')}
+    <br>
+    <table border="1" style="width:100%">
+      <tr>
+          <th>Carga asociada GD</th>
+          <th>Observaciones OSAP</th>
+          <th>Sellado de naviera</th>
+          <th>Observaciones</th>
+      </tr>
 
-</table>
-</body>
+      <tr>
+          <td>${updatedContentAfterWrite.rebp06R4.cargaAsociadaGD}</td>
+          <td>${updatedContentAfterWrite.rebp06R4.observacionesOSAP}</td>
+          <td>${updatedContentAfterWrite.rebp06R4.selladoDeNaviera}</td>
+          <td>${updatedContentAfterWrite.rebp06R4.observacionesR4}</td>
+
+      </tr>
+    </table>
+  
+    <div style="margin-top: 20px; margin-bottom: 20px; page-break-before: always;"></div>
+
+    <h2>REBP-01</h2>
+    <table border="1" style="width:100%">
+      <tr>
+        <th>ID</th>
+        <th>Lote</th>
+        <th>Pallet</th>
+        <th>N# TB</th>
+        <th>Peso Neto</th>
+        <th>Sello</th>
+        <th>Sello Observaciones</th>
+      </tr>
+
+      ${updatedContentAfterWrite.dataExcel.map((item:any, index:any) => `
+        <tr>
+          <td>${item.ID}</td>
+          <td>${item.Fecha}</td>
+          <td>${item.Tipo}</td>
+          <td>${item.Numero}</td>
+          <td>${item.Valor}</td>
+          <td>${item.Material}</td>
+          <td>${item.Observaciones ? item.Observaciones.map((itemObservaciones:any) => itemObservaciones + '<br>').join('') : ''}</td>
+
+        </tr>
+      `).join('')}
+
+    </table>
+
+      
+      </body>
     </html>
     `;
     
@@ -532,7 +584,6 @@ const [data, setData] = useState<{
 
     try {
       const pdf = await RNHTMLtoPDF.convert(options);
-      console.log(updatedContentAfterWrite.rebp06R2)
       viewPDF(pdf);
     } catch (error) {
       console.error('Error al generar el PDF:', error);
@@ -557,20 +608,35 @@ const [data, setData] = useState<{
   };
   
   const prueba = async (index: any) => {
+    const objetoEncontrado = data.find(item => item.index === index);
+    const updatedContentAfterWrite = await RNFS.readFile(objetoEncontrado!.path);
+    const jsonData = JSON.parse(updatedContentAfterWrite);
 
-    try {
-      const objetoEncontrado = data.find(item => item.index === index);
-      const updatedContentAfterWrite = await RNFS.readFile(objetoEncontrado!.path);
-      const jsonData = JSON.parse(updatedContentAfterWrite);
-      console.log(jsonData)
-      // Genera el PDF y espera a que se complete
-      await generatePDF(jsonData);
+    //console.log(jsonData,urlImage)
+    if (JSON.stringify(jsonData.rebp06R1) === '{}' || JSON.stringify(jsonData.rebp06R2) === '{}' || JSON.stringify(jsonData.rebp06R3) === '{}' || JSON.stringify(jsonData.rebp06R4) === '{}' || jsonData.excel === false){
       
-      // Visualiza el PDF después de que se haya generado
-
-    } catch (error) {
-      console.error('Error en la función prueba:', error);
+      Alert.alert(
+        'Alerta!',
+        'No se han completado todos los formularios',
+        [
+          { 
+            text: 'Aceptar',
+          },
+          
+        ],
+        { cancelable: false }
+      );
     }
+    else{
+      try {
+    
+        await generatePDF(jsonData);
+  
+      } catch (error) {
+        console.error('Error en la función prueba:', error);
+      }
+    }
+
   };
   
   
@@ -816,4 +882,45 @@ const htmlStyles = `
 }
 .recuadroInfo div .sinLinea {
   border-bottom: none;
-}`;
+}
+.watermark {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 10px; /* Margen para darle un espacio desde los bordes */
+  opacity: 0.3; /* Ajusta la opacidad según tus necesidades */
+  pointer-events: none; /* Permite que la imagen no interfiera con la interacción del usuario */
+}
+`;
+
+
+/*     <div style="display: flex; flex-direction: row;">
+    <div style="flex: 1;">
+    <h4>Contramuestras</h4>
+      <table border="1" style="width: 100%;">
+        <tr>
+          <th>Crop</th>
+          <th>Tipo de Envases</th>
+        </tr> 
+        <tr>
+        <td>${updatedContentAfterWrite.rebp06R2.contramuestras ? updatedContentAfterWrite.rebp06R2.contramuestras.map((itemContramuestras:any) => itemContramuestras + '<br>').join('') : ''}</td>
+        <td>${updatedContentAfterWrite.rebp06R2.loteNrR2}</td>
+        </tr>
+      </table>
+    </div>
+  
+    <div style="flex: 1; padding-left: 10px;">
+      <h4>Contramuestras</h4>
+
+      <table border="1" style="width: 100%;">
+        <tr>
+          <th>Crop</th>
+          <th>Tipo de Envases</th>
+        </tr>
+        <tr>
+          <td>${updatedContentAfterWrite.rebp06R2.crop}</td>
+          <td>${updatedContentAfterWrite.rebp06R2.loteNrR2}</td>
+        </tr>
+      </table>
+    </div>
+  </div> */
